@@ -19,6 +19,11 @@ const BaseUserSchema = new Schema<IBaseUser>(
       required: true,
       default: false,
     },
+    is_admin_user: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     is_deleted: {
       type: Boolean,
       required: true,
