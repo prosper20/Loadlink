@@ -4,6 +4,11 @@ import { dispatchEventsCallback } from "../hooks/index";
 
 const BaseUserSchema = new Schema<IBaseUser>(
   {
+    base_user_id: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     user_email: {
       type: String,
       required: true,
