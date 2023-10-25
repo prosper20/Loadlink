@@ -6,7 +6,6 @@ const BaseUserSchema = new Schema<IBaseUser>(
   {
     base_user_id: {
       type: String,
-      required: true,
       unique: true,
     },
     user_email: {
@@ -59,11 +58,11 @@ const BaseUserModel: Model<IBaseUser> = mongoose.model<IBaseUser>(
 
 // Add hooks
 BaseUserSchema.post<IBaseUser>("save", (doc) => {
-  dispatchEventsCallback(doc._id);
+  dispatchEventsCallback(doc.base_user_id);
 });
 
 BaseUserSchema.on("remove", (doc: IBaseUser) => {
-  dispatchEventsCallback(doc._id);
+  dispatchEventsCallback(doc.base_user_id);
 });
 
 export default BaseUserModel;

@@ -6,7 +6,7 @@ import { IBaseUser } from "../IModels";
 import connection from "../config";
 
 // Load and define models
-const BaseUserModel: Model<IBaseUser> = require("./BaseUserModel").default;
+const BaseUserModel: Model<IBaseUser> = require("./BaseUser").default;
 
 // Define associations if needed
 

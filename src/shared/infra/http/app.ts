@@ -5,10 +5,10 @@ import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
 import { v1Router } from "./api/v1";
-//import { isProduction } from '../../../config';
+import { isProduction, PORT } from "../../../config";
 
 const origin = {
-  // origin: isProduction ? 'https://dddforum.com' : '*',
+  // origin: isProduction ? 'https://loadlink.com' : '*',
   origin: "*",
 };
 
@@ -23,7 +23,7 @@ app.use(morgan("combined"));
 
 app.use("/api/v1", v1Router);
 
-const port = process.env.PORT || 3000;
+const port = PORT || 3000;
 
 app.listen(port, () => {
   console.log(`[App]: Listening on port ${port}`);

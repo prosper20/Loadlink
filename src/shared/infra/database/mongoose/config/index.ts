@@ -1,16 +1,13 @@
 import mongoose, { ConnectOptions } from "mongoose";
-// import dotenv from "dotenv";
-import * as dotenv from "dotenv";
+import * as config from "../../../../../config/index";
 
-dotenv.config();
+const { DB_USER, DB_PASS, DB_HOST, DEV_DB_NAME, isProduction } = config;
 
-const { DB_USER, DB_PASS, DB_HOST, DEV_DB_NAME, IS_PRODUCTION } = process.env;
-
-const mode = IS_PRODUCTION === "true" ? "prod" : "dev";
+const mode = isProduction ? "prod" : "dev";
 
 console.log(`[DB]: Connecting to the database in ${mode} mode.`);
 
-let dbUri = `mongodb+srv://bobson:$upermanLock1@cluster0.1rwevnl.mongodb.net/Loadlink_dev?retryWrites=true&w=majority`;
+let dbUri = `mongodb+srv://${DB_USER}:${DB_PASS}@cluster0.1rwevnl.mongodb.net/${DEV_DB_NAME}?retryWrites=true&w=majority`;
 
 mongoose
   .connect(dbUri)
