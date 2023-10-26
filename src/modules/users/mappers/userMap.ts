@@ -5,10 +5,12 @@ import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 import { UserName } from "../domain/userName";
 import { UserPassword } from "../domain/userPassword";
 import { UserEmail } from "../domain/userEmail";
+import { FullName } from "../domain/fullName";
 
 export class UserMap implements Mapper<User> {
   public static toDTO(user: User): UserDTO {
     return {
+      fullname: user.fullname.value,
       username: user.username.value,
       isEmailVerified: user.isEmailVerified,
       isAdminUser: user.isAdminUser,
@@ -17,6 +19,7 @@ export class UserMap implements Mapper<User> {
   }
 
   public static toDomain(raw: any): User {
+    const fullNameOrError = FullName.create({ name: raw.fullname });
     const userNameOrError = UserName.create({ name: raw.username });
     const userPasswordOrError = UserPassword.create({
       value: raw.user_password,
@@ -26,6 +29,7 @@ export class UserMap implements Mapper<User> {
 
     const userOrError = User.create(
       {
+        fullname: fullNameOrError.getValue(),
         username: userNameOrError.getValue(),
         isAdminUser: raw.is_admin_user,
         isDeleted: raw.is_deleted,
@@ -53,6 +57,7 @@ export class UserMap implements Mapper<User> {
 
     return {
       base_user_id: user.userId.getStringValue(),
+      fullname: user.fullname.value,
       user_email: user.email.value,
       is_email_verified: user.isEmailVerified,
       username: user.username.value,

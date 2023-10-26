@@ -8,6 +8,11 @@ const BaseUserSchema = new Schema<IBaseUser>(
       type: String,
       unique: true,
     },
+    fullname: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     user_email: {
       type: String,
       required: true,

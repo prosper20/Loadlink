@@ -21,6 +21,7 @@ export class CreateUserController extends BaseController {
     let dto: CreateUserDTO = req.body as CreateUserDTO;
 
     dto = {
+      fullname: TextUtils.sanitize(dto.fullname),
       username: TextUtils.sanitize(dto.username),
       email: TextUtils.sanitize(dto.email),
       password: dto.password,
