@@ -1,5 +1,5 @@
 <p align="center">
- <img src="./diagrams/my-logo.svg" width="100" alt="Logo"/>
+ <img src="./diagrams/my-logo.svg" width="300" alt="Logo"/>
 </p>
 <h1 align="center">Loadlink</h1>
 
@@ -41,7 +41,7 @@ You can visit the app by going to `http://localhost:3000`.
 
 [You can visit the site here](https://).
 
-> `Note`: More features to be added and updated as the project currently being developed.
+> `Note`: Project has not been deployed yet, link will be updated whnei it has been deployed, more features to be added and updated as the project currently being developed.
 
 ### Built with
 
@@ -61,9 +61,9 @@ You can visit the app by going to `http://localhost:3000`.
 ### Architecture
 
 To separate concerns, the application was built with a Clean Architecture. It is divided into Domain, Application, Infrastructure layers and the User Interface which constitute part of the frontend.
-<img width="1586" alt="Frame 8 (1)" src="./diagrams/dddlayers.png">
 
 **Clean Architecture**: This architecture ensures a clear separation of logic, preventing the mixing of infrastructure and domain code. It enhances maintainability and scalability.
+
 <img width="1586" alt="Frame 8 (1)" src="./diagrams/clean-architecture.png">
 
 **DDD**: DDD divides our application into subdomains, focusing on core concepts and their related concerns, promoting a cohesive codebase for better organization.
@@ -160,11 +160,15 @@ The Shipping subdomain is primarily concerned with the process of creating shipm
       - Description: Users can mark a shipment as delivered after goods have been received.
 
 - **/locations**
+
   - **/api/v1/location**
     - POST: Receive geolocation data from travelers.
       - Description: Travelers can update the current location of the shipment.
   - **GET: Get location history.**
+
     - Description: This endpoint provides a list of the major locations of the shipment.
+
+    <img width="1586" alt="Frame 8 (1)" src="./diagrams/dddlayers.png">
 
 ## DDD Data Models
 
@@ -208,6 +212,14 @@ As a traveler, I want to view and accept shipping requests from users for trips 
 
 As a user, I want to see my shipping history, including past shipments, to keep track of my transactions.
 
+## Initial mockup for mobile screens
+
+<p align="center">
+  <img src="./diagrams/Review%20details%20(1).png" width="200" alt="User Dashboard (mobile view)"/>
+  <img src="./diagrams/Review%20details%20(2).png" width="200" alt="Orders Page (mobile view)"/>
+  <img src="./diagrams/Review%20details%20(4).png" width="200" alt="Tracking page (mobile view)"/>
+</p>
+
 ## Contributing
 
 Contributions are welcome! Open issues, bugs, and enhancements are all listed on the issues tab and labeled accordingly. Feel free to open bug tickets and make feature requests.
@@ -221,12 +233,3 @@ Thanks goes to these wonderful people :
     <td align="center"><a href="https://www.linkedin.com/in/bobson-prosper-paebi"><img src="./diagrams/bobson.png" width="100px;" alt=""/><br /><sub><b>Bobson Prosper</b></sub></a><br /><a href="#" title="Code">💻</a></td>
   </tr>
 </table>
-
-## Initial for mobile screens
-
-<p align="center">
-  <img src="./diagrams/Review%20details%20(1).png" width="200" alt="User Dashboard (mobile view)"/>
-  <img src="./diagrams/Review%20details%20(2).png" width="200" alt="Orders Page (mobile view)"/>
-  <img src="./diagrams/Review%20details%20(4).png" width="200" alt="Tracking page (mobile view)"/>
-  <img src="./diagrams/Review%20details.png" width="200" alt="Sidebar menu (mobile view)"/>
-</p>
