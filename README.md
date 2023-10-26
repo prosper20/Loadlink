@@ -1,5 +1,5 @@
 <p align="center">
- <img src="./diagrams/my-logo.svg"/>
+ <img src="./diagrams/my-logo.svg" width="100" alt="Logo"/>
 </p>
 <h1 align="center">Loadlink</h1>
 
@@ -64,7 +64,7 @@ To separate concerns, the application was built with a Clean Architecture. It is
 <img width="1586" alt="Frame 8 (1)" src="./diagrams/dddlayers.png">
 
 **Clean Architecture**: This architecture ensures a clear separation of logic, preventing the mixing of infrastructure and domain code. It enhances maintainability and scalability.
-<img width="1586" alt="Frame 8 (1)" src="./diagrams/application-architecture.svg">
+<img width="1586" alt="Frame 8 (1)" src="./diagrams/clean-architecture.png">
 
 **DDD**: DDD divides our application into subdomains, focusing on core concepts and their related concerns, promoting a cohesive codebase for better organization.
 
@@ -224,10 +224,9 @@ Thanks goes to these wonderful people :
 
 ## Initial for mobile screens
 
-![User Dashboard (mobile view)]<img src="./diagrams/Review details (1).png"/>
-
-![Orders Page (mobile view)]<img src="./diagrams/Review details (2).png"/>
-
-![Tracking page (mobile view)]<img src="./diagrams/Review details (4).png"/>
-
-![Sidebar menu (mobile view)]<img src="./diagrams/Review details.png"/>
+<p align="center">
+  <img src="./diagrams/Review%20details%20(1).png" width="200" alt="User Dashboard (mobile view)"/>
+  <img src="./diagrams/Review%20details%20(2).png" width="200" alt="Orders Page (mobile view)"/>
+  <img src="./diagrams/Review%20details%20(4).png" width="200" alt="Tracking page (mobile view)"/>
+  <img src="./diagrams/Review%20details.png" width="200" alt="Sidebar menu (mobile view)"/>
+</p>
