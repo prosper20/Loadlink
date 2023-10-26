@@ -168,8 +168,6 @@ The Shipping subdomain is primarily concerned with the process of creating shipm
 
     - Description: This endpoint provides a list of the major locations of the shipment.
 
-    <img width="1586" alt="Frame 8 (1)" src="./diagrams/dddlayers.png">
-
 ## DDD Data Models
 
 Incorporate your updated data model to reflect DDD and Clean Architecture:
@@ -215,9 +213,9 @@ As a user, I want to see my shipping history, including past shipments, to keep 
 ## Initial mockup for mobile screens
 
 <p align="center">
-  <img src="./diagrams/Review%20details%20(1).png" width="200" alt="User Dashboard (mobile view)"/>
-  <img src="./diagrams/Review%20details%20(2).png" width="200" alt="Orders Page (mobile view)"/>
-  <img src="./diagrams/Review%20details%20(4).png" width="200" alt="Tracking page (mobile view)"/>
+  <img src="./diagrams/Review%20details%20(1).png" width="250" alt="User Dashboard (mobile view)"/>
+  <img src="./diagrams/Review%20details%20(2).png" width="250" alt="Orders Page (mobile view)"/>
+  <img src="./diagrams/Review%20details%20(4).png" width="250" alt="Tracking page (mobile view)"/>
 </p>
 
 ## Contributing
@@ -226,7 +224,7 @@ Contributions are welcome! Open issues, bugs, and enhancements are all listed on
 
 ## Contributors ✨
 
-Thanks goes to these wonderful people :
+Below is the list of people who has made contributions to the this repo:
 
 <table>
   <tr>
