@@ -5,7 +5,7 @@
 
 > A light weight load shipping platform built with TypeScript using the clean architecture and Domain Driven Design and SOLID principles.
 
-<img width="1586" alt="Frame 8 (1)" src="./diagrams/loadlink-landing-page.png">
+<img width="1586" alt="Frame 8 (1)" src="./diagrams/loadlink-landing-page1.png">
 
 ## About
 
