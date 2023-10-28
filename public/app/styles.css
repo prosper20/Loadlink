@@ -1,0 +1,175 @@
+/* Reset some default styles for cross-browser consistency */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply a background color and font to the entire page */
+body {
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: Arial, sans-serif;*/
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+/* Header styles */
+header {
+  background-color: #074061;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.navigation {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.logo img {
+  width: 150px;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.menu li {
+  display: flex;
+  align-items: center;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.menu li a:hover {
+  color: #2a9134;
+}
+
+/* Hero section styles */
+.hero {
+  position: relative;
+
+  text-align: center;
+}
+
+.hero-bg {
+  background-image: url("./img/hero-background.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hero h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #2a9134;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #009b38;
+}
+
+/* Footer styles */
+.footer {
+  background-color: #032335;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Contributing Section Styles */
+#contributing {
+  background-color: #f1f1f1;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contributing-container {
+  gap: 2rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .contributing-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.contributing-text {
+  max-width: 55rem;
+}
+
+.contributing-text h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.contributing-text p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.contribution-options {
+  flex: 1;
+  text-align: center;
+}
+
+.contribution-option h4 {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.contributing-link {
+  text-decoration: none;
+  color: #2a9134;
+}
+
+.contributing-link i {
+  font-size: 3rem; /* Adjust the size as needed */
+}
+
+.trello-logo {
+  width: 60px;
+}

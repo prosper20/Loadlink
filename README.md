@@ -3,7 +3,7 @@
 </p>
 <h1 align="center">Loadlink</h1>
 
-> A lighet weight load shipping platform built with TypeScript using the clean architecture and Domain Driven Design and SOLID principles.
+> A light weight load shipping platform built with TypeScript using the clean architecture and Domain Driven Design and SOLID principles.
 
 <img width="1586" alt="Frame 8 (1)" src="./diagrams/Screen Shot 2023-10-26 at 19.47.08.png">
 
@@ -41,7 +41,7 @@ You can visit the app by going to `http://localhost:3000`.
 
 [You can visit the site here](https://).
 
-> `Note`: Project has not been deployed yet, link will be updated whnei it has been deployed, more features to be added and updated as the project currently being developed.
+> `Note`: Project has not been deployed yet, link will be updated when it has been deployed, more features to be added and updated as the project currently being developed.
 
 ### Built with
 
