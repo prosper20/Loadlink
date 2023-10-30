@@ -7,7 +7,7 @@
     "tsc": "tsc",
     "setup": "npm install",
     "start": "node dist/index.js",
-    "build": "setup && tsc",
+    "build": "npm run setup && tsc",
     "dev": "nodemon --watch '*.ts' --exec 'ts-node' src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
