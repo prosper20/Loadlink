@@ -44,9 +44,10 @@ export class Middleware {
 
   public ensureAuthenticated() {
     return async (req, res, next) => {
-      const token = req.headers["authorization"];
+      let token = req.headers["authorization"];
       // Confirm that the token was signed with our signature.
       if (token) {
+        token = req.headers["authorization"].split(" ")[1];
         const decoded = await this.authService.decodeJWT(token);
         const signatureFailed = !!decoded === false;
 

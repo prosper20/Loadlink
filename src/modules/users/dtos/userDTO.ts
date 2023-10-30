@@ -1,7 +1,8 @@
 export interface UserDTO {
+  userId: string;
   username: string;
   fullname: string;
-  isEmailVerified?: boolean;
+  mobileNumber: string;
   isAdminUser?: boolean;
   isDeleted?: boolean;
 }

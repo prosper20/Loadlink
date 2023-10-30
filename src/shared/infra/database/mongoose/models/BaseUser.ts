@@ -13,15 +13,10 @@ const BaseUserSchema = new Schema<IBaseUser>(
       required: true,
       unique: true,
     },
-    user_email: {
+    mobile_number: {
       type: String,
       required: true,
       unique: true,
-    },
-    is_email_verified: {
-      type: Boolean,
-      required: true,
-      default: false,
     },
     is_admin_user: {
       type: Boolean,
@@ -51,11 +46,10 @@ const BaseUserSchema = new Schema<IBaseUser>(
   },
   {
     timestamps: true,
-    collection: "base_user", // Define the collection name
+    collection: "base_user",
   }
 );
 
-// Create the Mongoose model
 const BaseUserModel: Model<IBaseUser> = mongoose.model<IBaseUser>(
   "BaseUser",
   BaseUserSchema

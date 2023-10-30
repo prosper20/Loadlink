@@ -4,14 +4,14 @@ import { Either, Result, left, right } from "../../../../shared/core/Result";
 import { AppError } from "../../../../shared/core/AppError";
 import { IUserRepo } from "../../repos/userRepo";
 import { UseCase } from "../../../../shared/core/UseCase";
-import { UserEmail } from "../../domain/userEmail";
 import { UserPassword } from "../../domain/userPassword";
 import { UserName } from "../../domain/userName";
 import { User } from "../../domain/user";
 import { FullName } from "../../domain/fullName";
+import { MobileNumber } from "../../domain/mobileNumber";
 
 type Response = Either<
-  | CreateUserErrors.EmailAlreadyExistsError
+  | CreateUserErrors.MobileNumberAlreadyExistsError
   | CreateUserErrors.UsernameTakenError
   | AppError.UnexpectedError
   | Result<any>,
@@ -28,13 +28,13 @@ export class CreateUserUseCase
   }
 
   async execute(request: CreateUserDTO): Promise<Response> {
-    const emailOrError = UserEmail.create(request.email);
+    const mobileNumberOrError = MobileNumber.create(request.mobileNumber);
     const passwordOrError = UserPassword.create({ value: request.password });
     const fullnameOrError = FullName.create({ name: request.fullname });
     const usernameOrError = UserName.create({ name: request.username });
 
     const dtoResult = Result.combine([
-      emailOrError,
+      mobileNumberOrError,
       passwordOrError,
       usernameOrError,
       fullnameOrError,
@@ -44,17 +44,19 @@ export class CreateUserUseCase
       return left(Result.fail<void>(dtoResult.getErrorValue())) as Response;
     }
 
-    const email: UserEmail = emailOrError.getValue();
+    const mobileNumber: MobileNumber = mobileNumberOrError.getValue();
     const password: UserPassword = passwordOrError.getValue();
     const fullname: FullName = fullnameOrError.getValue();
     const username: UserName = usernameOrError.getValue();
 
     try {
-      const userAlreadyExists = await this.userRepo.exists(email);
+      const userAlreadyExists = await this.userRepo.exists(mobileNumber);
 
       if (userAlreadyExists) {
         return left(
-          new CreateUserErrors.EmailAlreadyExistsError(email.value)
+          new CreateUserErrors.MobileNumberAlreadyExistsError(
+            mobileNumber.value
+          )
         ) as Response;
       }
 
@@ -72,7 +74,7 @@ export class CreateUserUseCase
       } catch (err) {}
 
       const userOrError: Result<User> = User.create({
-        email,
+        mobileNumber,
         password,
         fullname,
         username,

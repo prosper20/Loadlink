@@ -1,4 +1,3 @@
-import { UserEmail } from "./userEmail";
 import { FullName } from "./fullName";
 import { UserName } from "./userName";
 import { UserId } from "./userId";
@@ -11,13 +10,13 @@ import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 import { Result } from "../../../shared/core/Result";
 import { Guard } from "../../../shared/core/Guard";
 import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
+import { MobileNumber } from "./mobileNumber";
 
 interface UserProps {
-  email: UserEmail;
+  mobileNumber: MobileNumber;
   fullname: FullName;
   username: UserName;
   password: UserPassword;
-  isEmailVerified?: boolean;
   isAdminUser?: boolean;
   accessToken?: JWTToken;
   refreshToken?: RefreshToken;
@@ -30,8 +29,8 @@ export class User extends AggregateRoot<UserProps> {
     return UserId.create(this._id).getValue();
   }
 
-  get email(): UserEmail {
-    return this.props.email;
+  get mobileNumber(): MobileNumber {
+    return this.props.mobileNumber;
   }
 
   get fullname(): UserName {
@@ -52,10 +51,6 @@ export class User extends AggregateRoot<UserProps> {
 
   get isDeleted(): boolean {
     return this.props.isDeleted;
-  }
-
-  get isEmailVerified(): boolean {
-    return this.props.isEmailVerified;
   }
 
   get isAdminUser(): boolean {
@@ -96,7 +91,7 @@ export class User extends AggregateRoot<UserProps> {
     const guardResult = Guard.againstNullOrUndefinedBulk([
       { argument: props.username, argumentName: "username" },
       { argument: props.fullname, argumentName: "fullname" },
-      { argument: props.email, argumentName: "email" },
+      { argument: props.mobileNumber, argumentName: "mobileNumber" },
     ]);
 
     if (guardResult.isFailure) {
@@ -108,7 +103,6 @@ export class User extends AggregateRoot<UserProps> {
       {
         ...props,
         isDeleted: props.isDeleted ? props.isDeleted : false,
-        isEmailVerified: props.isEmailVerified ? props.isEmailVerified : false,
         isAdminUser: props.isAdminUser ? props.isAdminUser : false,
       },
       id

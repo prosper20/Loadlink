@@ -74,11 +74,10 @@ export class RedisAuthService
 
   public signJWT(props: JWTClaims): JWTToken {
     const claims: JWTClaims = {
-      email: props.email,
+      mobileNumber: props.mobileNumber,
       username: props.username,
       userId: props.userId,
       adminUser: props.adminUser,
-      isEmailVerified: props.isEmailVerified,
     };
 
     return jwt.sign(claims, authConfig.secret, {

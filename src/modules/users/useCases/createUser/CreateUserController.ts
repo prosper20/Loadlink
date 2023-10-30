@@ -23,7 +23,7 @@ export class CreateUserController extends BaseController {
     dto = {
       fullname: TextUtils.sanitize(dto.fullname),
       username: TextUtils.sanitize(dto.username),
-      email: TextUtils.sanitize(dto.email),
+      mobileNumber: TextUtils.sanitize(dto.mobileNumber),
       password: dto.password,
     };
 
@@ -36,7 +36,7 @@ export class CreateUserController extends BaseController {
         switch (error.constructor) {
           case CreateUserErrors.UsernameTakenError:
             return this.conflict(res, error.getErrorValue().message);
-          case CreateUserErrors.EmailAlreadyExistsError:
+          case CreateUserErrors.MobileNumberAlreadyExistsError:
             return this.conflict(res, error.getErrorValue().message);
           default:
             return this.fail(res, error.getErrorValue().message);

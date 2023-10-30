@@ -4,15 +4,16 @@ import { UserDTO } from "../dtos/userDTO";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 import { UserName } from "../domain/userName";
 import { UserPassword } from "../domain/userPassword";
-import { UserEmail } from "../domain/userEmail";
 import { FullName } from "../domain/fullName";
+import { MobileNumber } from "../domain/mobileNumber";
 
 export class UserMap implements Mapper<User> {
   public static toDTO(user: User): UserDTO {
     return {
+      userId: user.userId.getValue().toString(),
       fullname: user.fullname.value,
       username: user.username.value,
-      isEmailVerified: user.isEmailVerified,
+      mobileNumber: user.mobileNumber.value,
       isAdminUser: user.isAdminUser,
       isDeleted: user.isDeleted,
     };
@@ -21,21 +22,21 @@ export class UserMap implements Mapper<User> {
   public static toDomain(raw: any): User {
     const fullNameOrError = FullName.create({ name: raw.fullname });
     const userNameOrError = UserName.create({ name: raw.username });
+    const mobileNumberOrError = MobileNumber.create(raw.mobile_number);
     const userPasswordOrError = UserPassword.create({
       value: raw.user_password,
       hashed: true,
     });
-    const userEmailOrError = UserEmail.create(raw.user_email);
 
     const userOrError = User.create(
       {
         fullname: fullNameOrError.getValue(),
         username: userNameOrError.getValue(),
+        mobileNumber: mobileNumberOrError.getValue(),
         isAdminUser: raw.is_admin_user,
         isDeleted: raw.is_deleted,
-        isEmailVerified: raw.is_email_verified,
+
         password: userPasswordOrError.getValue(),
-        email: userEmailOrError.getValue(),
       },
       new UniqueEntityID(raw.base_user_id)
     );
@@ -58,8 +59,7 @@ export class UserMap implements Mapper<User> {
     return {
       base_user_id: user.userId.getStringValue(),
       fullname: user.fullname.value,
-      user_email: user.email.value,
-      is_email_verified: user.isEmailVerified,
+      mobile_number: user.mobileNumber.value,
       username: user.username.value,
       user_password: password,
       is_admin_user: user.isAdminUser,
