@@ -39,9 +39,9 @@ You can visit the app by going to `http://localhost:3000`.
 
 ### Demo
 
-[You can visit the site here](https://).
+[You can visit the site here](https://loadlink.up.railway.app/).
 
-> `Note`: Project has not been deployed yet, link will be updated when it has been deployed, more features to be added and updated as the project currently being developed.
+> `Note`: This project is currently under active development, and additional features and improvements will be added.
 
 ### Built with
 
