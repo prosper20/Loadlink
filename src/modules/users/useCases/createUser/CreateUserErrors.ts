@@ -5,7 +5,7 @@ export namespace CreateUserErrors {
   export class MobileNumberAlreadyExistsError extends Result<UseCaseError> {
     constructor(mobileNumber: string) {
       super(false, {
-        message: `The email ${mobileNumber} associated for this account already exists`,
+        message: `The mobileNumber ${mobileNumber}  already exists`,
       } as UseCaseError);
     }
   }
