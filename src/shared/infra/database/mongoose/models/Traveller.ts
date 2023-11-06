@@ -6,18 +6,21 @@ const TravellerSchema = new Schema<ITraveller>(
   {
     traveller_id: {
       type: String,
-      required: true,
       unique: true,
     },
     base_user: {
       type: Types.ObjectId,
       ref: "BaseUser",
-      required: true,
     },
     reputation: {
       type: Number,
       required: true,
       default: 0,
+    },
+    is_new: {
+      type: Boolean,
+      required: true,
+      default: true,
     },
   },
   {
@@ -34,9 +37,7 @@ TravellerSchema.virtual("trips", {
 
 // Add hooks
 TravellerSchema.pre("save", function (next) {
-  if (!this.isNew) return next();
-
-  this.traveller_id = this._id.toString();
+  this.is_new = this.isNew;
   next();
 });
 

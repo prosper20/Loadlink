@@ -53,7 +53,7 @@ export class MongooseUserRepo implements IUserRepo {
   }
 
   async delete(userId: string): Promise<void> {
-    const result = await this.userModel.deleteOne({ base_user_id: userId });
+    const result = await this.userModel.deleteOne({ _id: userId });
 
     if (result.deletedCount === 0) {
       throw new Error("User not found or could not be deleted.");

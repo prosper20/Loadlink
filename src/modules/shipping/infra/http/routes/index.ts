@@ -1,9 +1,3 @@
-// import { memberRouter } from "./member";
-// import { commentRouter } from "./comment";
-// import { postRouter } from "./post";
+import { tripRouter } from "./trip";
 
-// export {
-//   memberRouter,
-//   commentRouter,
-//   postRouter
-// }
+export { tripRouter };

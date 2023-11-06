@@ -90,6 +90,7 @@ export class CreateUserUseCase
       );
 
       if (userOrError.isFailure) {
+        this.userRepo.delete(emptyUser._id);
         return left(
           Result.fail<User>(userOrError.getErrorValue().toString())
         ) as Response;

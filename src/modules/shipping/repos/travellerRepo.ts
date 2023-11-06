@@ -11,4 +11,5 @@ export interface ITravellerRepo {
   getTravellerDetailsByTripSlug(slug: string): Promise<TravellerDetails>;
   save(traveller: Traveller): Promise<void>;
   delete(traveller: Traveller): Promise<void>;
+  initialize(): Promise<any>;
 }

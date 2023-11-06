@@ -1,159 +1,165 @@
-// import { ITripRepo } from "../tripRepo";
-// import { TripId } from "../../domain/tripId";
-// import { Trip } from "../../domain/trip";
-// import { TripMap } from "../../mappers/tripMap";
-// import { TripDetails } from "../../domain/tripDetails";
-// import { TripDetailsMap } from "../../mappers/tripDetailsMap";
-// import { ICommentRepo } from "../commentRepo";
-// import { ITripLikesRepo } from "../tripLikesRepo";
-// import { TripLikes } from "../../domain/tripLikes";
-// import { Model, Document } from "mongoose";
+import { ITripRepo } from "../tripRepo";
+import { TripId } from "../../domain/tripId";
+import { Trip } from "../../domain/trip";
+import { TripMap } from "../../mappers/tripMap";
+import { TripDetails } from "../../domain/tripDetails";
+import { TripDetailsMap } from "../../mappers/tripDetailsMap";
+import { ICommentRepo } from "../commentRepo";
+import { ITripLikesRepo } from "../tripLikesRepo";
+import { TripLikes } from "../../domain/tripLikes";
+import { Comments } from "../../domain/comments";
+import { Model, Document } from "mongoose";
+import { ITrip } from "../../../../shared/infra/database/mongoose/IModels";
 
-// export class TripRepo implements ITripRepo {
-//   private tripModel: Model<Document>;
-//   private commentRepo: ICommentRepo;
-//   private tripLikesRepo: ITripLikesRepo;
+export class TripRepo implements ITripRepo {
+  private tripModel: Model<ITrip>;
+  private commentRepo: ICommentRepo;
+  private tripLikesRepo: ITripLikesRepo;
 
-//   constructor(
-//     tripModel: Model<Document>,
-//     commentRepo: ICommentRepo,
-//     tripLikesRepo: ITripLikesRepo
-//   ) {
-//     this.tripModel = tripModel;
-//     this.commentRepo = commentRepo;
-//     this.tripLikesRepo = tripLikesRepo;
-//   }
+  constructor(
+    tripModel: Model<ITrip>,
+    commentRepo: ICommentRepo,
+    tripLikesRepo: ITripLikesRepo
+  ) {
+    this.tripModel = tripModel;
+    this.commentRepo = commentRepo;
+    this.tripLikesRepo = tripLikesRepo;
+  }
 
-//   private createBaseQuery(): any {
-//     // Create and return the base query for Mongoose
-//     return {};
-//   }
+  public async getTripByTripId(tripId: TripId | string): Promise<Trip> {
+    tripId = tripId instanceof TripId ? tripId.getStringValue() : tripId;
+    const trip = await this.tripModel.findOne({ trip_id: tripId });
+    const found = !!trip === true;
+    if (!found) throw new Error("Trip not found");
+    return TripMap.toDomain(trip);
+  }
 
-//   private createBaseDetailsQuery(): any {
-//     // Create and return the base details query for Mongoose
-//     return {};
-//   }
+  public async getLocationHistoryByTripId(
+    tripId: TripId | string
+  ): Promise<number> {
+    tripId = tripId instanceof TripId ? tripId.getStringValue() : tripId;
 
-//   public async getTripByTripId(tripId: TripId | string): Promise<Trip> {
-//     tripId =
-//       tripId instanceof TripId ? (<TripId>tripId).getStringValue() : tripId;
-//     const TripModel = this.tripModel;
-//     const detailsQuery = this.createBaseQuery();
-//     detailsQuery.trip_id = tripId;
-//     const trip = await TripModel.findOne(detailsQuery);
-//     const found = !!trip === true;
-//     if (!found) throw new Error("Trip not found");
-//     return TripMap.toDomain(trip);
-//   }
+    // Not yet implemented
+    return -1;
+  }
 
-//   public async getLocationHistoryByTripId(
-//     tripId: TripId | string
-//   ): Promise<number> {
-//     tripId =
-//       tripId instanceof TripId ? (<TripId>tripId).getStringValue() : tripId;
+  public async getTripDetailsBySlug(slug: string): Promise<TripDetails> {
+    const trip = await this.tripModel.findOne({ slug });
+    const found = !!trip === true;
+    if (!found) throw new Error("Trip not found");
+    return TripDetailsMap.toDomain(trip);
+  }
 
-//     const result = await this.tripModel.countDocuments({
-//       "comments.trip_id": tripId,
-//     });
-//     return result;
-//   }
+  public async getRecentTrips(
+    offset: number = 0,
+    limit: number = 50
+  ): Promise<TripDetails[]> {
+    const query = this.tripModel
+      .find()
+      .skip(offset)
+      .limit(limit)
+      .sort({ createdAt: -1 });
 
-//   public async getTripDetailsBySlug(
-//     slug: string,
-//     offset?: number
-//   ): Promise<TripDetails> {
-//     const TripModel = this.tripModel;
-//     const detailsQuery = this.createBaseDetailsQuery();
-//     detailsQuery.slug = slug;
-//     const trip = await TripModel.findOne(detailsQuery);
-//     const found = !!trip === true;
-//     if (!found) throw new Error("Trip not found");
-//     return TripDetailsMap.toDomain(trip);
-//   }
+    const trips = await query.exec();
+    return trips.map((t) => TripDetailsMap.toDomain(t));
+  }
 
-//   public async getRecentTrips(offset?: number): Promise<TripDetails[]> {
-//     const TripModel = this.tripModel;
-//     const detailsQuery = this.createBaseDetailsQuery();
-//     detailsQuery.offset = offset ? offset : detailsQuery.offset;
+  public async getPopularTrips(
+    offset: number = 0,
+    limit: number = 15
+  ): Promise<TripDetails[]> {
+    const query = this.tripModel
+      .find()
+      .skip(offset)
+      .limit(limit)
+      .sort({ points: -1 });
 
-//     const trips = await TripModel.find(detailsQuery);
-//     return trips.map((t) => TripDetailsMap.toDomain(t));
-//   }
+    const trips = await query.exec();
+    return trips.map((t) => TripDetailsMap.toDomain(t));
+  }
 
-//   public async getPopularTrips(offset?: number): Promise<TripDetails[]> {
-//     const TripModel = this.tripModel;
-//     const detailsQuery = this.createBaseDetailsQuery();
-//     detailsQuery.offset = offset ? offset : detailsQuery.offset;
-//     detailsQuery.sort = { points: -1 };
+  public async getTripBySlug(slug: string): Promise<Trip> {
+    const trip = await this.tripModel.findOne({ slug });
+    const found = !!trip === true;
+    if (!found) throw new Error("Trip not found");
+    return TripMap.toDomain(trip);
+  }
 
-//     const trips = await TripModel.find(detailsQuery);
-//     return trips.map((t) => TripDetailsMap.toDomain(t));
-//   }
+  public async exists(tripId: TripId): Promise<boolean> {
+    const trip = await this.tripModel.findOne({
+      trip_id: tripId.getStringValue(),
+    });
+    const found = !!trip === true;
+    return found;
+  }
 
-//   public async getTripBySlug(slug: string): Promise<Trip> {
-//     const TripModel = this.tripModel;
-//     const detailsQuery = this.createBaseQuery();
-//     detailsQuery.slug = slug;
-//     const trip = await TripModel.findOne(detailsQuery);
-//     const found = !!trip === true;
-//     if (!found) throw new Error("Trip not found");
-//     return TripMap.toDomain(trip);
-//   }
+  public async delete(tripId: TripId): Promise<void> {
+    const result = await this.tripModel.deleteOne({
+      trip_id: tripId.getStringValue(),
+    });
 
-//   public async exists(tripId: TripId): Promise<boolean> {
-//     const TripModel = this.tripModel;
-//     const baseQuery = this.createBaseQuery();
-//     baseQuery.trip_id = tripId.getStringValue();
-//     const trip = await TripModel.findOne(baseQuery);
-//     const found = !!trip === true;
-//     return found;
-//   }
+    if (result.deletedCount === 0) {
+      throw new Error("Trip not found or could not be deleted.");
+    }
 
-//   public async delete(tripId: TripId): Promise<void> {
-//     const result = await this.tripModel.deleteOne({
-//       trip_id: tripId.getStringValue(),
-//     });
+    return;
+  }
 
-//     if (result.deletedCount === 0) {
-//       throw new Error("Trip not found or could not be deleted.");
-//     }
+  private saveComments(comments: Comments) {
+    return this.commentRepo.saveBulk(comments.getItems());
+  }
 
-//     return;
-//   }
+  private saveTripLikes(tripLikes: TripLikes) {
+    return this.tripLikesRepo.saveBulk(tripLikes);
+  }
 
-//   private saveComments(comments: Comments) {
-//     return this.commentRepo.saveBulk(comments.getItems());
-//   }
+  public async save(trip: Trip): Promise<void> {
+    const doc = await this.tripModel.findOne({
+      trip_id: trip.tripId.getStringValue(),
+    });
+    const found = !!doc === true;
 
-//   private saveTripLikes(tripLikes: TripLikes) {
-//     return this.tripLikesRepo.saveBulk(tripLikes);
-//   }
+    const isNewTrip = found ? doc.is_new : false;
+    const rawMongooseTrip = await TripMap.toPersistence(trip);
 
-//   public async save(trip: Trip): Promise<void> {
-//     const TripModel = this.tripModel;
-//     const exists = await this.exists(trip.tripId);
-//     const isNewTrip = !exists;
-//     const rawMongooseTrip = await TripMap.toPersistence(trip);
+    if (isNewTrip) {
+      try {
+        const newTrip = await this.tripModel.findByIdAndUpdate(
+          trip.tripId.getStringValue(),
+          rawMongooseTrip,
+          { new: true }
+        );
+        newTrip.save();
+        //await this.saveComments(trip.comments);
+        //await this.saveTripLikes(trip.getLikes());
+      } catch (err) {
+        //await this.delete(trip.tripId);
+        throw new Error(err.toString());
+      }
+    } else {
+      // Save non-aggregate collections before saving the aggregate
+      // so that any domain events on the aggregate get dispatched
 
-//     if (isNewTrip) {
-//       try {
-//         await TripModel.create(rawMongooseTrip);
-//         await this.saveComments(trip.comments);
-//         await this.saveTripLikes(trip.getLikes());
-//       } catch (err) {
-//         await this.delete(trip.tripId);
-//         throw new Error(err.toString());
-//       }
-//     } else {
-//       // Save non-aggregate tables before saving the aggregate
-//       // so that any domain events on the aggregate get dispatched
-//       await this.saveComments(trip.comments);
-//       await this.saveTripLikes(trip.getLikes());
+      //await this.saveComments(trip.comments);
+      //await this.saveTripLikes(trip.getLikes());
 
-//       await TripModel.updateOne(
-//         { trip_id: trip.tripId.getStringValue() },
-//         rawMongooseTrip
-//       );
-//     }
-//   }
-// }
+      const updatedTrip = await this.tripModel.findByIdAndUpdate(
+        trip.tripId.getStringValue(),
+        rawMongooseTrip,
+        { new: true }
+      );
+      updatedTrip.save();
+    }
+  }
+  async initialize() {
+    const emptydoc = {
+      title: "",
+      trip_id: "",
+      text: "",
+      slug: "",
+      starting_location: "",
+      destination: "",
+    };
+    return await this.tripModel.create(emptydoc);
+  }
+}

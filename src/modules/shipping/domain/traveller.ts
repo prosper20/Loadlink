@@ -11,6 +11,7 @@ interface TravellerProps {
   userId: UserId;
   username: UserName;
   reputation?: number;
+  isNew?: boolean;
 }
 
 export class Traveller extends AggregateRoot<TravellerProps> {
@@ -53,7 +54,8 @@ export class Traveller extends AggregateRoot<TravellerProps> {
     };
 
     const traveller = new Traveller(defaultValues, id);
-    const isNewTraveller = !!id === false;
+    const isNewTraveller = !!props.isNew ? props.isNew : false;
+    // !!id === false;
 
     if (isNewTraveller) {
       traveller.addDomainEvent(new TravellerCreated(traveller));

@@ -1,131 +1,140 @@
-// import { UseCase } from "../../../../../shared/core/UseCase";
-// import { ITripRepo } from "../../../repos/tripRepo";
-// import { Either, Result, left, right } from "../../../../../shared/core/Result";
-// import { AppError } from "../../../../../shared/core/AppError";
-// import { CreateTripDTO } from "./CreateTripDTO";
-// import { ITravellerRepo } from "../../../repos/travellerRepo";
-// import { Traveller } from "../../../domain/traveller";
-// import { CreateTripErrors } from "./CreateTripErrors";
-// import { Trip, TripProps } from "../../../domain/trip";
-// import { TripTitle } from "../../../domain/tripTitle";
-// import { TripText } from "../../../domain/tripText";
-// import { TripSlug } from "../../../domain/tripSlug";
-// import { link } from "fs";
-// import { Destination } from "../../../domain/destination";
-// import { StartingLocation } from "../../../domain/startingLocation";
-// import { TripDate } from "../../../domain/tripDate";
+import { UseCase } from "../../../../../shared/core/UseCase";
+import { ITripRepo } from "../../../repos/tripRepo";
+import { Either, Result, left, right } from "../../../../../shared/core/Result";
+import { AppError } from "../../../../../shared/core/AppError";
+import { CreateTripDTO } from "./CreateTripDTO";
+import { ITravellerRepo } from "../../../repos/travellerRepo";
+import { Traveller } from "../../../domain/traveller";
+import { CreateTripErrors } from "./CreateTripErrors";
+import { Trip, TripProps } from "../../../domain/trip";
+import { TripTitle } from "../../../domain/tripTitle";
+import { TripText } from "../../../domain/tripText";
+import { TripSlug } from "../../../domain/tripSlug";
+import { link } from "fs";
+import { Destination } from "../../../domain/destination";
+import { StartingLocation } from "../../../domain/startingLocation";
+import { TripDate } from "../../../domain/tripDate";
+import { UniqueEntityID } from "../../../../../shared/domain/UniqueEntityID";
 
-// type Response = Either<
-//   | CreateTripErrors.TravellerDoesntExistError
-//   | AppError.UnexpectedError
-//   | Result<any>,
-//   Result<void>
-// >;
+type Response = Either<
+  | CreateTripErrors.TravellerDoesntExistError
+  | AppError.UnexpectedError
+  | Result<any>,
+  Result<void>
+>;
 
-// export class CreateTrip implements UseCase<CreateTripDTO, Promise<Response>> {
-//   private tripRepo: ITripRepo;
-//   private travellerRepo: ITravellerRepo;
+export class CreateTrip implements UseCase<CreateTripDTO, Promise<Response>> {
+  private tripRepo: ITripRepo;
+  private travellerRepo: ITravellerRepo;
 
-//   constructor(tripRepo: ITripRepo, travellerRepo: ITravellerRepo) {
-//     this.tripRepo = tripRepo;
-//     this.travellerRepo = travellerRepo;
-//   }
+  constructor(tripRepo: ITripRepo, travellerRepo: ITravellerRepo) {
+    this.tripRepo = tripRepo;
+    this.travellerRepo = travellerRepo;
+  }
 
-//   public async execute(request: CreateTripDTO): Promise<Response> {
-//     let traveller: Traveller;
-//     let title: TripTitle;
-//     let text: TripText;
-//     let slug: TripSlug;
-//     let trip: Trip;
-//     let startingLocation: StartingLocation;
-//     let destination: Destination;
-//     let beginningDate: TripDate;
-//     let endingDate: TripDate;
+  public async execute(request: CreateTripDTO): Promise<Response> {
+    let traveller: Traveller;
+    let title: TripTitle;
+    let text: TripText;
+    let slug: TripSlug;
+    let trip: Trip;
+    let startingLocation: StartingLocation;
+    let destination: Destination;
+    let beginningDate: TripDate;
+    let endingDate: TripDate;
 
-//     const { userId } = request;
+    const { userId } = request;
 
-//     try {
-//       try {
-//         traveller = await this.travellerRepo.getTravellerByUserId(userId);
-//       } catch (err) {
-//         return left(new CreateTripErrors.TravellerDoesntExistError());
-//       }
+    try {
+      try {
+        traveller = await this.travellerRepo.getTravellerByUserId(userId);
+      } catch (err) {
+        return left(new CreateTripErrors.TravellerDoesntExistError());
+      }
 
-//       const titleOrError = TripTitle.create({
-//         value: request.title
-//           ? request.title
-//           : `${request.startingLocation} - ${request.destination}`,
-//       });
+      const titleOrError = TripTitle.create({
+        value: request.title
+          ? request.title
+          : `${request.startingLocation} - ${request.destination}`,
+      });
 
-//       if (titleOrError.isFailure) {
-//         return left(titleOrError);
-//       }
-//       title = titleOrError.getValue();
+      if (titleOrError.isFailure) {
+        return left(titleOrError);
+      }
+      title = titleOrError.getValue();
 
-//       const textOrError = TripText.create({ value: request.text });
-//       if (textOrError.isFailure) {
-//         return left(textOrError);
-//       }
-//       text = textOrError.getValue();
+      const textOrError = TripText.create({ value: request.text });
+      if (textOrError.isFailure) {
+        return left(textOrError);
+      }
+      text = textOrError.getValue();
 
-//       const slugOrError = TripSlug.create(title);
+      const slugOrError = TripSlug.create(title);
 
-//       if (slugOrError.isFailure) {
-//         return left(slugOrError);
-//       }
+      if (slugOrError.isFailure) {
+        return left(slugOrError);
+      }
 
-//       slug = slugOrError.getValue();
+      slug = slugOrError.getValue();
 
-//       const startingLocationOrError = StartingLocation.create({
-//         value: request.text,
-//       });
-//       if (startingLocationOrError.isFailure) {
-//         return left(startingLocationOrError);
-//       }
-//       startingLocation = startingLocationOrError.getValue();
+      const startingLocationOrError = StartingLocation.create({
+        value: request.startingLocation,
+      });
+      if (startingLocationOrError.isFailure) {
+        return left(startingLocationOrError);
+      }
+      startingLocation = startingLocationOrError.getValue();
 
-//       const destinationOrError = Destination.create({ value: request.text });
-//       if (destinationOrError.isFailure) {
-//         return left(destinationOrError);
-//       }
-//       destination = destinationOrError.getValue();
+      const destinationOrError = Destination.create({
+        value: request.destination,
+      });
+      if (destinationOrError.isFailure) {
+        return left(destinationOrError);
+      }
+      destination = destinationOrError.getValue();
 
-//       const beginningDateOrError = TripDate.create({ value: request.text });
-//       if (beginningDateOrError.isFailure) {
-//         return left(beginningDateOrError);
-//       }
-//       beginningDate = beginningDateOrError.getValue();
+      const beginningDateOrError = TripDate.create(request.beginningDate);
+      if (beginningDateOrError.isFailure) {
+        return left(beginningDateOrError);
+      }
+      beginningDate = beginningDateOrError.getValue();
 
-//       const endingDateOrError = TripDate.create({ value: request.text });
-//       if (endingDateOrError.isFailure) {
-//         return left(endingDateOrError);
-//       }
-//       endingDate = endingDateOrError.getValue();
+      const endingDateOrError = TripDate.create(request.endingDate);
+      if (endingDateOrError.isFailure) {
+        return left(endingDateOrError);
+      }
+      endingDate = endingDateOrError.getValue();
 
-//       const tripProps: TripProps = {
-//         title,
-//         slug,
-//         travellerId: traveller.travellerId,
-//         text,
-//         startingLocation,
-//         destination,
-//         beginningDate,
-//         endingDate,
-//       };
+      const emptyTrip = await this.tripRepo.initialize();
+      const id = new UniqueEntityID(emptyTrip._id.toString());
+      const isNew = emptyTrip.is_new as boolean;
 
-//       const tripOrError = Trip.create(tripProps);
+      const tripProps: TripProps = {
+        title,
+        slug,
+        travellerId: traveller.travellerId,
+        text,
+        startingLocation,
+        destination,
+        beginningDate,
+        endingDate,
+        isNew,
+      };
 
-//       if (tripOrError.isFailure) {
-//         return left(tripOrError);
-//       }
+      const tripOrError = Trip.create(tripProps, id);
 
-//       trip = tripOrError.getValue();
+      if (tripOrError.isFailure) {
+        this.tripRepo.delete(emptyTrip._id);
+        return left(tripOrError);
+      }
 
-//       await this.tripRepo.save(trip);
+      trip = tripOrError.getValue();
 
-//       return right(Result.ok<void>());
-//     } catch (err) {
-//       return left(new AppError.UnexpectedError(err));
-//     }
-//   }
-// }
+      await this.tripRepo.save(trip);
+
+      return right(Result.ok<void>());
+    } catch (err) {
+      return left(new AppError.UnexpectedError(err));
+    }
+  }
+}

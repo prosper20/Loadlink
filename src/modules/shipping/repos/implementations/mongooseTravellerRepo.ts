@@ -97,7 +97,12 @@ export class TravellerRepo implements ITravellerRepo {
 
     if (!exists) {
       const rawMongooseTraveller = await TravellerMap.toPersistence(traveller);
-      await this.travellerModel.create(rawMongooseTraveller);
+      const newTraveller = await this.travellerModel.findByIdAndUpdate(
+        traveller.travellerId.getStringValue(),
+        rawMongooseTraveller,
+        { new: true }
+      );
+      newTraveller.save();
     }
 
     return;
@@ -113,5 +118,12 @@ export class TravellerRepo implements ITravellerRepo {
     }
 
     return;
+  }
+
+  async initialize() {
+    const emptydoc = {
+      traveller_id: "",
+    };
+    return await this.travellerModel.create(emptydoc);
   }
 }

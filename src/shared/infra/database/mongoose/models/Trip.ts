@@ -20,7 +20,6 @@ const TripSchema = new Schema<ITrip>(
     },
     slug: {
       type: String,
-      required: true,
       unique: true,
     },
     points: {
@@ -30,28 +29,23 @@ const TripSchema = new Schema<ITrip>(
     },
     starting_location: {
       type: String,
-      required: true,
     },
     destination: {
       type: String,
-      required: true,
     },
     beginning_date: {
       type: Date,
-      required: true,
     },
     ending_date: {
       type: Date,
-      required: true,
     },
     images: {
       type: [String],
-      validate: {
-        validator: function (value: string[]) {
-          return value.length <= 4; // Maximum of 4 images
-        },
-        message: "Maximum of 4 images allowed",
-      },
+    },
+    is_new: {
+      type: Boolean,
+      required: true,
+      default: true,
     },
   },
   {
@@ -66,17 +60,15 @@ TripSchema.virtual("likes", {
   foreignField: "trip_id",
 });
 
+// Add hooks
 TripSchema.pre<ITrip>("save", function (next) {
+  this.is_new = this.isNew;
   if (this.starting_location && this.destination) {
     this.title = `${this.starting_location} - ${this.destination}`;
   }
   next();
 });
 
-// Create the Mongoose model
-const TripModel: Model<ITrip> = mongoose.model<ITrip>("Trip", TripSchema);
-
-// Add hooks
 TripSchema.post<ITrip>("save", (doc) => {
   dispatchEventsCallback(doc.trip_id);
 });
@@ -84,5 +76,7 @@ TripSchema.post<ITrip>("save", (doc) => {
 TripSchema.on("remove", (doc: ITrip) => {
   dispatchEventsCallback(doc.trip_id);
 });
+// Create the Mongoose model
+const TripModel: Model<ITrip> = mongoose.model<ITrip>("Trip", TripSchema);
 
 export default TripModel;

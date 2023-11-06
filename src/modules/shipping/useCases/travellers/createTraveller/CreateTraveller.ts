@@ -7,6 +7,7 @@ import { AppError } from "../../../../../shared/core/AppError";
 import { CreateTravellerErrors } from "./CreateTravellerErrors";
 import { User } from "../../../../users/domain/user";
 import { Traveller } from "../../../domain/traveller";
+import { UniqueEntityID } from "../../../../../shared/domain/UniqueEntityID";
 
 type Response = Either<
   | CreateTravellerErrors.TravellerAlreadyExistsError
@@ -50,12 +51,21 @@ export class CreateTraveller
         }
       } catch (err) {}
 
-      const travellerOrError: Result<Traveller> = Traveller.create({
-        userId: user.userId,
-        username: user.username,
-      });
+      const emptyTraveller = await this.travellerRepo.initialize();
+      const id = new UniqueEntityID(emptyTraveller._id.toString());
+      const isNew = emptyTraveller.is_new as boolean;
+
+      const travellerOrError: Result<Traveller> = Traveller.create(
+        {
+          userId: user.userId,
+          username: user.username,
+          isNew,
+        },
+        id
+      );
 
       if (travellerOrError.isFailure) {
+        this.travellerRepo.delete(emptyTraveller._id);
         return left(travellerOrError);
       }
 

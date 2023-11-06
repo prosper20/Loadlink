@@ -2,16 +2,16 @@ import { TravellerRepo } from "./implementations/mongooseTravellerRepo";
 import {
   TravellerModel,
   TripModel,
+  CommentModel,
+  TripLikeModel,
 } from "../../../shared/infra/database/mongoose/models/index";
-// import { PostRepo } from "./implementations/sequelizePostRepo";
-// import { CommentRepo } from "./implementations/commentRepo";
-// import { PostVotesRepo } from "./implementations/sequelizePostVotesRepo";
-// import { CommentVotesRepo } from "./implementations/sequelizeCommentVotesRepo";
+import { TripRepo } from "./implementations/mongooseTripRepo";
+import { CommentRepo } from "./implementations/commentRepo";
+import { TripLikesRepo } from "./implementations/mongooseTripLikesRepo";
 
-// const commentVotesRepo = new CommentVotesRepo(models);
-// const postVotesRepo = new PostVotesRepo(models);
+const tripLikesRepo = new TripLikesRepo(TripLikeModel);
 const travellerRepo = new TravellerRepo(TravellerModel, TripModel);
-// const commentRepo = new CommentRepo(models, commentVotesRepo);
-// const postRepo = new PostRepo(models, commentRepo, postVotesRepo);
+const commentRepo = new CommentRepo(CommentModel);
+const tripRepo = new TripRepo(TripModel, commentRepo, tripLikesRepo);
 
-export { travellerRepo };
+export { travellerRepo, tripRepo, commentRepo, tripLikesRepo };

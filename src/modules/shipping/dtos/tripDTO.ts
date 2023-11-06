@@ -1,10 +1,11 @@
+import { TravellerId } from "../domain/travellerId";
 import { TravellerDTO } from "./travellerDTO";
 
 export interface TripDTO {
   slug: string;
   title: string;
   images?: string[];
-  travellerPostedBy: TravellerDTO;
+  travellerPostedBy: TravellerId;
   points: number;
   text: string;
   startingLocation: string;

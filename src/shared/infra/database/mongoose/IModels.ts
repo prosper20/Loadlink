@@ -25,12 +25,14 @@ export interface ITrip extends Document {
   beginning_date: Date;
   ending_date: Date;
   images: string[];
+  is_new: boolean;
 }
 
 export interface ITraveller extends Document {
   traveller_id: string;
   base_user: ObjectId;
   reputation: number;
+  is_new: boolean;
   trips: ObjectId[];
 }
 
