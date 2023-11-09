@@ -70,11 +70,29 @@ export class TravellerRepo implements ITravellerRepo {
 
   public async getTravellerByUserName(username: string): Promise<Traveller> {
     const TravellerModel = this.travellerModel;
-    const traveller = await TravellerModel.findOne({ username });
+    const result = await TravellerModel.aggregate([
+      {
+        $lookup: {
+          from: "base_user",
+          localField: "base_user",
+          foreignField: "_id",
+          as: "base_user",
+        },
+      },
+      {
+        $match: {
+          "base_user.username": username,
+        },
+      },
+    ]);
 
-    if (!traveller) {
+    if (!result) {
       throw new Error("Traveller not found");
     }
+    const traveller = {
+      ...result[0],
+      base_user: result[0].base_user[0],
+    };
 
     return TravellerMap.toDomain(traveller);
   }
@@ -83,12 +101,46 @@ export class TravellerRepo implements ITravellerRepo {
     username: string
   ): Promise<TravellerDetails> {
     const TravellerModel = this.travellerModel;
-    const traveller = await TravellerModel.findOne({ username });
 
+    const result = await TravellerModel.aggregate([
+      {
+        $lookup: {
+          from: "base_user",
+          localField: "base_user",
+          foreignField: "_id",
+          as: "base_user",
+        },
+      },
+      {
+        $match: {
+          "base_user.username": username,
+        },
+      },
+    ]);
+
+    if (!result) {
+      throw new Error("Traveller not found");
+    }
+    const traveller = {
+      ...result[0],
+      base_user: result[0].base_user[0],
+    };
+
+    return TravellerDetailsMap.toDomain(traveller);
+  }
+
+  public async getTravellerDetailsByTravellerId(
+    travellerId: string
+  ): Promise<TravellerDetails> {
+    const TravellerModel = this.travellerModel;
+
+    const traveller = await TravellerModel.findOne({
+      traveller_id: travellerId,
+    });
+    console.log(traveller);
     if (!traveller) {
       throw new Error("Traveller not found");
     }
-
     return TravellerDetailsMap.toDomain(traveller);
   }
 

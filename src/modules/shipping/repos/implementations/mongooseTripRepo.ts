@@ -61,7 +61,9 @@ export class TripRepo implements ITripRepo {
       .sort({ createdAt: -1 });
 
     const trips = await query.exec();
-    return trips.map((t) => TripDetailsMap.toDomain(t));
+    return Promise.all(
+      trips.map(async (t) => await TripDetailsMap.toDomain(t))
+    );
   }
 
   public async getPopularTrips(
@@ -75,7 +77,11 @@ export class TripRepo implements ITripRepo {
       .sort({ points: -1 });
 
     const trips = await query.exec();
-    return trips.map((t) => TripDetailsMap.toDomain(t));
+    return Promise.all(
+      trips.map(async (t) => await TripDetailsMap.toDomain(t))
+    );
+
+    //return trips.map((t) => TripDetailsMap.toDomain(t));
   }
 
   public async getTripBySlug(slug: string): Promise<Trip> {

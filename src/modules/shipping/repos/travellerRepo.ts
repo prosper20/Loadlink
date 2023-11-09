@@ -8,6 +8,9 @@ export interface ITravellerRepo {
   getTravellerIdByUserId(userId: string): Promise<TravellerId>;
   getTravellerByUserName(username: string): Promise<Traveller>;
   getTravellerDetailsByUserName(username: string): Promise<TravellerDetails>;
+  getTravellerDetailsByTravellerId(
+    travellerId: string
+  ): Promise<TravellerDetails>;
   getTravellerDetailsByTripSlug(slug: string): Promise<TravellerDetails>;
   save(traveller: Traveller): Promise<void>;
   delete(traveller: Traveller): Promise<void>;

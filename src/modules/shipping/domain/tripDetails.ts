@@ -12,7 +12,7 @@ import { TripDate } from "./tripDate";
 import { TravellerId } from "./travellerId";
 
 interface TripDetailsProps {
-  traveller: TravellerId;
+  traveller: TravellerDetails;
   slug: TripSlug;
   title?: TripTitle;
   text?: TripText;
@@ -26,7 +26,7 @@ interface TripDetailsProps {
 }
 
 export class TripDetails extends ValueObject<TripDetailsProps> {
-  get traveller(): TravellerId {
+  get traveller(): TravellerDetails {
     return this.props.traveller;
   }
 

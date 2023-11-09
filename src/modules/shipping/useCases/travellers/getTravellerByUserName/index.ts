@@ -1,16 +1,11 @@
-// import { GetMemberByUserName } from "./GetMemberByUserName";
-// import { memberRepo } from "../../../repos";
-// import { GetMemberByUserNameController } from "./GetMemberByUserNameController";
+import { GetTravellerByUserName } from "./GetTravellerByUserName";
+import { travellerRepo } from "../../../repos";
+import { GetTravellerByUserNameController } from "./GetTravellerByUserNameController";
 
-// const getMemberByUserName = new GetMemberByUserName(
-//   memberRepo
-// )
+const getTravellerByUserName = new GetTravellerByUserName(travellerRepo);
 
-// const getMemberByUserNameController = new GetMemberByUserNameController(
-//   getMemberByUserName
-// )
+const getTravellerByUserNameController = new GetTravellerByUserNameController(
+  getTravellerByUserName
+);
 
-// export {
-//   getMemberByUserName,
-//   getMemberByUserNameController
-// }
+export { getTravellerByUserName, getTravellerByUserNameController };

@@ -1,0 +1,585 @@
+/* Reset some default styles for cross-browser consistency */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply a background color and font to the entire page */
+body {
+  /*font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
+  background-color: #f1f1f1;
+  color: #333;*/
+
+  background: #fcfcfd;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  line-height: 1.71429;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #23262f;
+}
+
+/* Header styles */
+header {
+  background-color: #074061;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.navigation {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.logo img {
+  width: 60px;
+}
+.logo {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.logo span {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.71429;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #fff;
+}
+
+/* Style the <ul> element */
+ul.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Style the <li> elements (list items) */
+ul.list li {
+  margin-right: 20px;
+}
+
+@media (max-width: 767px) {
+  ul.list li {
+    margin-right: 0;
+    margin-left: 20px;
+  }
+}
+
+/* Style the links (anchors) */
+ul.list li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 800;
+  font-size: 16px;
+  border-radius: 20px;
+  padding: 10px 20px;
+  transition: background 0.3s, color 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+ul.list li a:hover {
+  color: #2a9134;
+}
+
+/* Style the "Ship Item" and "Post a Trip" buttons */
+ul.list li:nth-child(3) a,
+ul.list li:nth-child(4) a {
+  border: #042f47 1.5px solid;
+  color: #fff;
+}
+
+ul.list li:nth-child(3) a:hover,
+ul.list li:nth-child(4) a:hover {
+  border: 0;
+  background-color: #2a9134;
+  color: #23262f;
+}
+/* a[href="#ship"]:hover .nav-icon,
+a[href="#trip"]:hover .nav-icon, */
+
+.navi-icons:hover .nav-icon {
+  color: #23262f;
+}
+
+/* Style the icons */
+.nav-icon {
+  margin-right: 10px;
+  color: #2a9134;
+  font-size: 1.5rem;
+}
+
+/* Media Query for Mobile Screens */
+@media (max-width: 767px) {
+  .hero-content {
+    width: 100%;
+  }
+  /* Hide "About" and "Features" links on mobile */
+  ul.list li:nth-child(1),
+  ul.list li:nth-child(2) {
+    display: none;
+  }
+
+  /* Display only the icons for "Post a Trip" and "Ship an Item" */
+  ul.list li:nth-child(3) span.nav-icon,
+  ul.list li:nth-child(4) span.nav-icon {
+    display: inline;
+  }
+
+  /* Hide the "Post a Trip" and "Ship an Item" text on mobile */
+  ul.list li:nth-child(3) span,
+  ul.list li:nth-child(4) span {
+    display: none;
+  }
+  .nav-icon {
+    margin-right: 7px;
+    margin-left: 7px;
+  }
+}
+
+/* Hide text on mobile view */
+@media screen and (max-width: 768px) {
+  ul.list li a {
+    padding: 10px; /* Reduce padding for mobile view */
+  }
+
+  ul.list li a span {
+    display: none; /* Hide the text, assuming text is enclosed in <span> elements */
+  }
+
+  ul.list li a::before {
+    margin-right: 0; /* Remove the space between the icon and the button border */
+  }
+}
+
+/* Prevent horizontal overflow on navigation bar */
+/* .navigation {
+  overflow-x: auto;
+} */
+
+/* Hero section styles */
+.hero {
+  position: relative;
+  margin-bottom: 136px;
+  text-align: center;
+}
+
+.hero-bg {
+  background-image: url("../img/flight-white.avif");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.hero-bg::before {
+  content: "";
+  background-image: url("../img/flight-white.avif");
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px); /* Adjust the blur value to your preference */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Ensure it's behind the content */
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hero h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 24px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 767px) {
+  .hero h1 {
+    font-size: 28px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .hero p {
+    font-size: 20px;
+    margin-bottom: 60px;
+  }
+  .hero-content {
+    top: 45%;
+  }
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #2a9134;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #009b38;
+}
+
+/* Footer styles */
+.footer {
+  background-color: #032335;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Contributing Section Styles */
+#contributing {
+  background-color: #f1f1f1;
+  padding: 4rem 2rem 2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contributing-container {
+  gap: 2rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .contributing-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.contributing-text {
+  max-width: 55rem;
+}
+
+.contributing-text h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.contributing-text p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.contribution-options {
+  flex: 1;
+  text-align: center;
+}
+
+.contribution-option h4 {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.contributing-link {
+  text-decoration: none;
+  color: #2a9134;
+}
+
+.contributing-link i {
+  font-size: 3rem;
+}
+
+.trello-logo {
+  width: 60px;
+}
+
+/* new styles */
+.h2 {
+  font-size: 38px;
+  line-height: 1.16667;
+  letter-spacing: -0.02em;
+}
+
+.info {
+  margin-top: 12px;
+  font-size: 24px;
+  line-height: 1.33333;
+  letter-spacing: -0.01em;
+  color: #777e90;
+}
+
+[class^="section"] {
+  margin-bottom: 136px;
+}
+@media only screen and (max-width: 1179px) {
+  [class^="section"] {
+    margin-bottom: 112px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  [class^="section"] {
+    margin-bottom: 64px;
+  }
+}
+.center {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: auto;
+}
+
+.scenerio {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.sect-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.experiences {
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-top: 2rem;
+}
+.experiences > div {
+  width: 33.33%;
+}
+
+.experience {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.exp-img {
+  border-radius: 20%;
+}
+
+@media only screen and (max-width: 900px) {
+  .experience {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .exp-img {
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 10%;
+    border-top-left-radius: 10%;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+/* Your existing CSS styles here */
+.experiences-container {
+  position: relative;
+}
+
+.navi {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* .prev {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+} */
+
+.next {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.next,
+.prev {
+  font-size: 24px;
+  color: #777e90;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.next:hover,
+.prev:hover {
+  color: #525355;
+}
+@media (min-width: 601px) {
+  .next,
+  .prev {
+    display: none; /* Hide the buttons */
+  }
+}
+
+/* Media query for screens with a max-width of 600px */
+@media (max-width: 600px) {
+  .experience {
+    display: none;
+  }
+  .photo-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .experience:first-child {
+    display: block;
+    width: 96%;
+  }
+  .exp-img {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+/* Subheading styles */
+.section > div:nth-child(2) {
+  font-size: 18px;
+  color: #777e90;
+  margin-top: 12px;
+}
+
+/* Travel row styles */
+.how-it-works__row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  align-items: center;
+}
+
+/* Travel card styles */
+.how-it-works__row > div {
+  width: 48%;
+  background-color: #ffffff;
+  padding: 20px;
+}
+
+@media (max-width: 767px) {
+  .how-it-works__row {
+    flex-direction: column;
+  }
+  .how-it-works__row > div {
+    width: 90%;
+  }
+}
+
+/* Travel card number styles */
+
+/* Travel card title styles */
+
+/* Link styles */
+.shiptoday {
+  display: block;
+  margin-top: 20px;
+  text-decoration: none;
+  background-color: #2a9134;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  width: fit-content;
+  transition: background-color 0.3s;
+}
+
+.shiptoday:hover {
+  background-color: #146c1c;
+}
+
+/* Image styles */
+.how-it-works__row img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.numbers {
+  display: flex;
+  align-items: center;
+}
+.numbers span {
+  color: #fff;
+  font-weight: 800;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+
+.why-use-us {
+  display: flex;
+  margin-top: 50px;
+}
+
+.why-us {
+  color: #23262f;
+  text-align: center;
+}
+.why-use-us > div {
+  width: 33.33%;
+}
+@media only screen and (max-width: 600px) {
+  .why-use-us {
+    flex-direction: column;
+    align-items: center;
+  }
+  .why-use-us > div {
+    width: 96%;
+  }
+}
+.imagebox {
+  display: flex;
+  justify-content: center;
+}
+
+.signup-section {
+  display: flex;
+  justify-content: space-between;
+}
+@media only screen and (max-width: 767px) {
+  .signup-section {
+    flex-direction: column;
+  }
+}
+.reg_btn_div {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}

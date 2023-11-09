@@ -12,21 +12,24 @@ import { StartingLocation } from "../domain/startingLocation";
 import { TripDate } from "../domain/tripDate";
 import { TravellerId } from "../domain/travellerId";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
+import { TravellerDetails } from "../domain/travellerDetails";
+import { AppError } from "../../../shared/core/AppError";
+import { travellerRepo } from "../repos";
 
 export class TripDetailsMap implements Mapper<TripDetails> {
-  public static toDomain(raw: any): TripDetails {
+  public static async toDomain(raw: any): Promise<TripDetails> {
     const slug = TripSlug.createFromExisting(raw.slug).getValue();
     const title = TripTitle.create({ value: raw.title }).getValue();
-    const travellerId = TravellerId.create(
-      new UniqueEntityID(raw.traveller_id)
-    ).getValue();
+
     const startingLocationOrError = StartingLocation.create({
       value: raw.starting_location,
     });
     const destinationOrError = Destination.create({ value: raw.destination });
     const beginningDateOrError = TripDate.create(raw.beginning_date);
     const endingDateOrError = TripDate.create(raw.ending_date);
-
+    const traveller = await travellerRepo.getTravellerDetailsByTripSlug(
+      raw.slug
+    );
     // const likes: TripLike[] = raw.Likes
     //   ? raw.Likes.map((v) => TripLikeMap.toDomain(v))
     //   : [];
@@ -36,7 +39,7 @@ export class TripDetailsMap implements Mapper<TripDetails> {
       title,
       points: raw.points,
       dateTimePosted: raw.createdAt,
-      traveller: travellerId,
+      traveller,
       text: TripText.create({ value: raw.text }).getValue(),
       images: raw.images ? raw.images : [],
       startingLocation: startingLocationOrError.getValue(),
@@ -57,7 +60,7 @@ export class TripDetailsMap implements Mapper<TripDetails> {
       slug: tripDetails.slug.value,
       title: tripDetails.title.value,
       createdAt: tripDetails.dateTimePosted,
-      travellerPostedBy: tripDetails.traveller,
+      travellerPostedBy: TravellerDetailsMap.toDTO(tripDetails.traveller),
       points: tripDetails.points,
       text: tripDetails.text.value,
       images: tripDetails.images,

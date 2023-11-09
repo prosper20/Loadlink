@@ -1,11 +1,8 @@
-// import { GetPostBySlug } from "./GetPostBySlug";
-// import { postRepo } from "../../../repos";
-// import { GetPostBySlugController } from "./GetPostBySlugController";
+import { GetTripBySlug } from "./GetTripBySlug";
+import { tripRepo } from "../../../repos";
+import { GetTripBySlugController } from "./GetTripBySlugController";
 
-// const getPostBySlug = new GetPostBySlug(postRepo);
-// const getPostBySlugController = new GetPostBySlugController(getPostBySlug);
+const getTripBySlug = new GetTripBySlug(tripRepo);
+const getTripBySlugController = new GetTripBySlugController(getTripBySlug);
 
-// export {
-//   getPostBySlug,
-//   getPostBySlugController
-// }
+export { getTripBySlug, getTripBySlugController };

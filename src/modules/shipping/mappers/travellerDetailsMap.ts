@@ -10,7 +10,9 @@ import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 export class TravellerDetailsMap implements Mapper<TravellerDetails> {
   public static toDomain(raw: any): TravellerDetails {
     const userNameOrError = UserName.create({ name: raw.base_user.username });
-    const mobileNumberOrError = MobileNumber.create(raw.base_user.mobileNumber);
+    const mobileNumberOrError = MobileNumber.create(
+      raw.base_user.mobile_number
+    );
     const fullnameOrError = FullName.create({ name: raw.base_user.fullname });
     const userIdOrError = UserId.create(
       new UniqueEntityID(raw.base_user.base_user_id)
@@ -38,7 +40,7 @@ export class TravellerDetailsMap implements Mapper<TravellerDetails> {
       reputation: travellerDetails.reputation,
       user: {
         username: travellerDetails.username.value,
-        userId: travellerDetails.userId.getValue.toString(),
+        userId: travellerDetails.userId.getStringValue(),
         fullname: travellerDetails.fullname.value,
         mobileNumber: travellerDetails.mobileNumber.value,
       },

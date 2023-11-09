@@ -1,8 +1,8 @@
-// import { GetCurrentMemberController } from "./GetCurrentMemberController";
-// import { getMemberByUserName } from "../getMemberByUserName";
+import { GetCurrentTravellerController } from "./GetCurrentTravellerController";
+import { getTravellerByUserName } from "../getTravellerByUserName";
 
-// const getCurrentMemberController = new GetCurrentMemberController(
-//   getMemberByUserName
-// )
+const getCurrentTravellerController = new GetCurrentTravellerController(
+  getTravellerByUserName
+);
 
-// export { getCurrentMemberController }
+export { getCurrentTravellerController };

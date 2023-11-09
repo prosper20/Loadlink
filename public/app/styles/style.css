@@ -1,0 +1,594 @@
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #fcfcfd;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  line-height: 1.71429;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #23262f;
+}
+
+/* Header styles */
+header {
+  background-color: #074061;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.navigation {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.logo img {
+  width: 60px;
+}
+.logo {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.logo span {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.71429;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #fff;
+}
+
+/* Style the <ul> element */
+ul.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Style the <li> elements (list items) */
+ul.list li {
+  margin-right: 15px;
+}
+
+@media (max-width: 767px) {
+  ul.list li {
+    margin-right: 0;
+    /* margin-left: 10px; */
+  }
+  ul.list li:nth-child(2) {
+    margin-right: 7px;
+  }
+}
+
+/* Style the links (anchors) */
+ul.list li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 800;
+  font-size: 16px;
+  border-radius: 20px;
+  /* padding: 10px 20px; */
+  transition: background 0.3s, color 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+/* ul.list li a:hover {
+  color: #2a9134;
+} */
+
+/* Style the "Ship Item" and "Post a Trip" buttons */
+
+ul.list li:nth-child(3) a {
+  border: #042f47 1.5px solid;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+ul.list li:nth-child(3) a:hover {
+  border: 0;
+  background-color: #2a9134;
+  color: #23262f;
+}
+
+a[href="#notifications"]:hover .nav-icon,
+a[href="#profile"]:hover .nav-icon {
+  color: #146c1c;
+}
+a[href="#trip"]:hover .nav-icon {
+  color: #23262f;
+}
+
+/* Style the icons */
+.nav-icon {
+  margin-right: 10px;
+  color: #2a9134;
+  font-size: 1.5rem;
+}
+
+/* Media Query for Mobile Screens */
+@media (max-width: 767px) {
+  .hero-content {
+    width: 100%;
+  }
+  ul.list li:nth-child(3) a {
+    padding: 10px 10px;
+  }
+  /* Hide "About" and "Features" links on mobile */
+  /* ul.list li:nth-child(1),
+  ul.list li:nth-child(2) {
+    display: none;
+  } */
+
+  /* Display only the icons for "Post a Trip" and "Ship an Item" */
+  ul.list li:nth-child(3) span.nav-icon {
+    display: inline;
+  }
+
+  /* Hide the "Post a Trip" and "Ship an Item" text on mobile */
+  ul.list li:nth-child(3) span {
+    display: none;
+  }
+  .nav-icon {
+    margin-right: 7px;
+    margin-left: 7px;
+  }
+}
+
+/* Hide text on mobile view */
+@media screen and (max-width: 768px) {
+  /* ul.list li a {
+    padding: 10px; 
+  } */
+
+  .post-trip-span {
+    display: none;
+  }
+  /* ul.list li a span {
+    display: none;
+  } */
+
+  ul.list li a::before {
+    margin-right: 0; /* Remove the space between the icon and the button border */
+  }
+}
+
+.search-bar {
+  text-align: center;
+  padding: 2rem 2rem;
+  background-color: #f1f1f1;
+  margin: 2rem 1rem;
+  border-radius: 10px;
+}
+
+.search-bar form {
+  display: flex;
+  gap: 10px;
+}
+
+.middle-content {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 1rem;
+  gap: 1rem;
+}
+
+.left-container,
+.right-container {
+  /* padding: 10px; */
+  /* border: 1px solid #ccc; */
+  border-radius: 5px;
+}
+.left-container {
+  width: 30%;
+}
+.right-container {
+  flex: 1;
+}
+
+@media (max-width: 767px) {
+  .left-container {
+    width: 100%;
+  }
+  .middle-content {
+    flex-direction: column;
+  }
+}
+
+.section {
+  margin: 1rem;
+}
+
+.trip-list {
+  /* border: 1px solid #032335; */
+  list-style: none;
+  padding: 5px;
+  margin-top: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+.trip-list li {
+  margin-bottom: 1rem;
+  width: 100%;
+  border: 1px solid #e5e7ec;
+  border-radius: 10px;
+  height: 7rem;
+}
+
+.trip {
+  display: flex;
+  gap: 5px;
+}
+.Ltrip {
+  flex-direction: column;
+  gap: 2px;
+}
+.Ltrip-list li {
+  height: auto;
+}
+@media screen and (max-width: 768px) {
+  .trip {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .trip-list li {
+    height: auto;
+  }
+}
+.tripLeft,
+.tripRight,
+.tripCenter {
+  /* border: 1px solid #e5e7ec; */
+  height: 7rem;
+}
+.tripLeft {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tripLeft img {
+  border-radius: 50%;
+}
+.LtripLeft {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .tripLeft {
+    display: none;
+  }
+}
+.tripRight {
+  text-align: center;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.tripRight > * {
+  width: 80%;
+}
+.LtripRight {
+  width: 100%;
+  height: auto;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 3px;
+}
+.LtripRight > * {
+  width: 90%;
+}
+@media screen and (max-width: 768px) {
+  .tripRight {
+    width: 100%;
+    height: auto;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .tripRight > * {
+    width: 90%;
+  }
+}
+.requestBtn {
+  height: 3rem;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #074061;
+  color: #fff;
+  border-radius: 5px;
+  outline: none;
+  border: 2px solid #074061;
+}
+
+.tripCenter {
+  flex: 1;
+  display: flex;
+  gap: 0.5rem;
+}
+.LtripCenter {
+  margin-top: 5px;
+  gap: 0;
+}
+@media screen and (max-width: 768px) {
+  .tripCenter {
+    margin-top: 5px;
+    gap: 0;
+  }
+  .tripRight {
+    margin-bottom: 3px;
+  }
+}
+/* .tripCenter > div {
+
+} */
+.tripCenter > div:nth-child(1) {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tripCenter > div:nth-child(2) {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.tripCenter > div:nth-child(3) {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tripCenter > div:nth-child(3) div {
+  text-align: right;
+}
+
+.progress-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.progress-bar {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: #ccc; /* Progress bar background color */
+  border-radius: 5px;
+}
+
+.progress-indicator {
+  position: absolute;
+  height: 3px;
+  width: 50%;
+  background: #074061; /* Indicator color */
+  border-radius: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Slight shadow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.progress-indicator::before,
+.progress-indicatorafter {
+  content: "";
+  position: absolute;
+  width: 20px; /* Adjust the circle size as needed */
+  height: 20px; /* Adjust the circle size as needed */
+  border-radius: 50%;
+  background: white; /* White circle color */
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Slight shadow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-indicator::before {
+  left: 0;
+}
+.progress-indicatorafter {
+  right: 0;
+}
+
+.progress-bar::before,
+.progress-bar::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #074061;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.progress-bar::before {
+  left: 5px;
+}
+
+.progress-bar::after {
+  right: 5px;
+}
+.time-of-post {
+  font-size: 12px;
+  font-style: italic;
+  color: gray;
+}
+
+.travelBy {
+  width: 3.5rem;
+}
+
+.recent-shipments {
+  padding: 1rem;
+  height: 15rem;
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+
+.completed-shipments {
+  font-size: 0;
+}
+
+.completed-shipment {
+  width: 14rem;
+  height: 14rem;
+  border: 1px solid #e6e8ed;
+  border-radius: 10px;
+  margin-right: 2rem;
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* Footer styles */
+.footer {
+  background-color: #032335;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  overflow: auto;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* Center modal on smaller screens */
+@media (max-width: 767px) {
+  .modal-content {
+    width: 90%;
+    max-width: 400px;
+  }
+}
+
+/* Style the form fields and button as needed */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+/* Style other modal elements (e.g., labels, inputs, buttons) */
+.modal-content h2 {
+  margin: 0;
+}
+
+/* Style the open modal button */
+#openModalBtn {
+  cursor: pointer;
+}
+
+/* Style the close modal button (the "x" icon) */
+#closeModalBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Style the modal form elements */
+.modal-content select,
+.modal-content input[type="text"],
+.modal-content input[type="time"],
+.modal-content input[type="date"],
+.modal-content input[type="number"],
+.modal-content button {
+  padding: 10px;
+  border: 1px solid #074061;
+  border-radius: 5px;
+  outline: none;
+  margin-top: 5px;
+}
+
+.modal-content button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.modal-content select {
+  background: white;
+}
+
+.modal-content select:focus,
+.modal-content input[type="text"]:focus,
+.modal-content input[type="time"]:focus,
+.modal-content input[type="date"]:focus,
+.modal-content input[type="number"]:focus,
+.modal-content button:focus {
+  border: 2px solid #074061;
+}
+/* Add this CSS to style the rows */
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 1rem;
+}
+
+/* Adjust the width of the form fields for a two-by-two layout */
+.form-group {
+  flex: 1;
+  text-align: left;
+}

@@ -1,3 +1,4 @@
+import { TravellerDetails } from "../domain/travellerDetails";
 import { TravellerId } from "../domain/travellerId";
 import { TravellerDTO } from "./travellerDTO";
 
@@ -5,7 +6,7 @@ export interface TripDTO {
   slug: string;
   title: string;
   images?: string[];
-  travellerPostedBy: TravellerId;
+  travellerPostedBy: TravellerDTO;
   points: number;
   text: string;
   startingLocation: string;
