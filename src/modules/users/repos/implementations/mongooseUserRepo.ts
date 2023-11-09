@@ -4,11 +4,12 @@ import { User } from "../../domain/user";
 import { UserMap } from "../../mappers/userMap";
 import { Model, Document } from "mongoose";
 import { MobileNumber } from "../../domain/mobileNumber";
+import { IBaseUser } from "../../../../shared/infra/database/mongoose/IModels";
 
 export class MongooseUserRepo implements IUserRepo {
-  private userModel: Model<Document>;
+  private userModel: Model<IBaseUser>;
 
-  constructor(model: Model<Document>) {
+  constructor(model: Model<IBaseUser>) {
     this.userModel = model;
   }
 
@@ -40,20 +41,35 @@ export class MongooseUserRepo implements IUserRepo {
 
     if (!exists) {
       const rawMongooseUser = await UserMap.toPersistence(user);
-      const newUser = new this.userModel(rawMongooseUser);
-      await newUser.save();
+      const newUser = await this.userModel.findByIdAndUpdate(
+        user.userId.getStringValue(),
+        rawMongooseUser,
+        { new: true }
+      );
+      newUser.save();
     }
 
     return;
   }
 
   async delete(userId: string): Promise<void> {
-    const result = await this.userModel.deleteOne({ base_user_id: userId });
+    const result = await this.userModel.deleteOne({ _id: userId });
 
     if (result.deletedCount === 0) {
       throw new Error("User not found or could not be deleted.");
     }
 
     return;
+  }
+
+  async initialize() {
+    const emptydoc = {
+      base_user_id: "",
+      fullname: "",
+      mobile_number: "",
+      username: "",
+      user_password: "",
+    };
+    return await this.userModel.create(emptydoc);
   }
 }

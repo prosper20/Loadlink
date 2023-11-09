@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/signup.css" />
+    <title>Sign Up</title>
+  </head>
+  <body>
+    <div class="background-video">
+      <video autoplay loop muted>
+        <source
+          src="./img/pexels-kindel-media-6868586 (Original).mp4"
+          type="video/mp4"
+        />
+      </video>
+    </div>
+
+    <div class="header">
+      <img src="./img/my-logo-cropped.svg" alt="Company Logo" />
+      <h2>LOADLINK</h2>
+    </div>
+
+    <div class="signup-container">
+      <form>
+        <h1>Sign Up</h1>
+        <p style="text-align: left">
+          Join us to make the shipping of goods easier! Whether you want to post
+          a trip or optimize your shipping packings, we've got you covered.
+        </p>
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" name="fullname" required />
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+        <div class="form-group">
+          <label for="mobileNumber">Mobile Number</label>
+          <input type="tel" id="mobileNumber" name="mobileNumber" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <button type="submit">Sign Up</button>
+      </form>
+      <p class="signup-link">
+        Already have an account? <a href="login.html">Login</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link rel="icon" type="image/svg+xml" href="./img/favicon/favicon.svg" />
+    <link rel="icon" type="image/png" href="./img/favicon/favicon.png" />
+    <link <link rel="stylesheet" href="styles/trip.css" />
+    <title>Trip Details</title>
+  </head>
+  <body>
+    <div class="header">
+      <img src="./img/my-logo-cropped.svg" alt="Company Logo" />
+      <h2>LOADLINK</h2>
+    </div>
+    <div class="trip-details">
+      <div class="map-row">
+        <div class="map-left">
+          <div class="map-left-top">
+            <div style="display: flex; justify-content: space-around">
+              <span style="font-size: 35px; font-weight: bold"
+                ><span>Lagos</span>
+                <span> - </span>
+                <span>Calabar</span></span
+              >
+              <button class="like-button">
+                <span class="material-symbols-outlined"> thumb_up </span>
+              </button>
+            </div>
+            <p class="trip-details details-text">
+              <span>Start Time: 10:00 AM</span>
+              <span>End Time: 2:00 PM</span>
+              <span>Estimated Duration: 4 hours</span>
+              <span>23 mins ago</span>
+            </p>
+          </div>
+          <div
+            style="display: flex; flex-direction: column; padding-left: 30px"
+          >
+            <h3 class="shipment-section">Shipments</h3>
+            <ul class="shipment-list">
+              <li>
+                <div>
+                  <span class="shipment-created-state">Shipment Created</span>
+                  <span class="shipment-created-time">at 7:45am 23 July</span>
+                </div>
+                <div>
+                  <span class="shipment-created-status">Processing</span>
+                </div>
+              </li>
+              <li>Shipment 2</li>
+              <li>Shipment 3</li>
+              <li>Shipment 4</li>
+            </ul>
+          </div>
+        </div>
+        <div class="map-right"></div>
+      </div>
+      <div class="user-details">
+        <div class="expand_less">
+          <span>Posted by <span>Doubara Fubara</span></span>
+          <span
+            style="
+              color: #2a9134;
+              font-size: 25px;
+              font-weight: bold;
+              cursor: pointer;
+            "
+            class="material-symbols-outlined expandBtn"
+          >
+            expand_less
+          </span>
+        </div>
+        <div class="user-info">
+          <div
+            style="
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
+              width: 100%;
+              background-color: #074061;
+              padding-bottom: 15px;
+            "
+          >
+            <div style="display: flex; align-items: center">
+              <img src="./img/user-dp.png" alt="User Profile" />
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: left;
+                  justify-content: center;
+                "
+              >
+                <span class="userFullName">Doubara Fubara</span>
+                <span class="userUserName">fubara</span>
+              </div>
+            </div>
+            <div style="display: flex; gap: 1rem">
+              <a
+                style="color: #2a9134"
+                href="https://wa.me/2348187654321"
+                class="chat-user"
+              >
+                <span class="material-symbols-outlined"> forum </span>
+              </a>
+              <a
+                style="color: #2a9134"
+                href="tel:08187654321"
+                class="call-user"
+              >
+                <span class="material-symbols-outlined"> phone_enabled </span>
+              </a>
+            </div>
+          </div>
+          <div class="shipment-details">
+            <span class="shipment-count"
+              >Completed Shipments: <span class="count-number">25</span></span
+            >
+            <span class="average-rating"
+              >Average Rating:
+              <span class="rating-stars">
+                <span class="star">&#9733;</span>
+                <span class="star">&#9733;</span>
+                <span class="star">&#9733;</span>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/trip.js"></script>
+  </body>
+</html>

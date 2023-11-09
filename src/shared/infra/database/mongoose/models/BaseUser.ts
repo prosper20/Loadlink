@@ -10,12 +10,10 @@ const BaseUserSchema = new Schema<IBaseUser>(
     },
     fullname: {
       type: String,
-      required: true,
       unique: true,
     },
     mobile_number: {
       type: String,
-      required: true,
       unique: true,
     },
     is_admin_user: {
@@ -30,10 +28,14 @@ const BaseUserSchema = new Schema<IBaseUser>(
     },
     username: {
       type: String,
-      required: true,
     },
     user_password: {
       type: String,
+    },
+    is_new: {
+      type: Boolean,
+      required: true,
+      default: true,
     },
     sender: {
       type: mongoose.Schema.Types.ObjectId,
@@ -50,12 +52,12 @@ const BaseUserSchema = new Schema<IBaseUser>(
   }
 );
 
-const BaseUserModel: Model<IBaseUser> = mongoose.model<IBaseUser>(
-  "BaseUser",
-  BaseUserSchema
-);
-
 // Add hooks
+BaseUserSchema.pre("save", function (next) {
+  this.is_new = this.isNew;
+  next();
+});
+
 BaseUserSchema.post<IBaseUser>("save", (doc) => {
   dispatchEventsCallback(doc.base_user_id);
 });
@@ -63,5 +65,10 @@ BaseUserSchema.post<IBaseUser>("save", (doc) => {
 BaseUserSchema.on("remove", (doc: IBaseUser) => {
   dispatchEventsCallback(doc.base_user_id);
 });
+
+const BaseUserModel: Model<IBaseUser> = mongoose.model<IBaseUser>(
+  "BaseUser",
+  BaseUserSchema
+);
 
 export default BaseUserModel;

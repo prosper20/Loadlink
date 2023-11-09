@@ -1,0 +1,90 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.background-video video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  background-color: rgba(7, 64, 97, 0.7);
+  /* background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(7, 64, 97, 0.7)); */
+  /* background: rgba(255, 255, 255, 0.7);  */
+  padding: 10px;
+}
+
+.header img {
+  width: 50px; /* Adjust the logo size */
+  height: 50px; /* Adjust the logo size */
+  margin-right: 10px;
+}
+
+.signup-container {
+  background-color: rgba(255, 255, 255, 0.7); /* Slight transparency */
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form h1 {
+  margin: 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #074061;
+  border-radius: 5px;
+  outline: none;
+}
+
+button {
+  background-color: #074061;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #03304a;
+}

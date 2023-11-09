@@ -21,6 +21,7 @@ interface UserProps {
   accessToken?: JWTToken;
   refreshToken?: RefreshToken;
   isDeleted?: boolean;
+  isNew?: boolean;
   lastLogin?: Date;
 }
 
@@ -33,7 +34,7 @@ export class User extends AggregateRoot<UserProps> {
     return this.props.mobileNumber;
   }
 
-  get fullname(): UserName {
+  get fullname(): FullName {
     return this.props.fullname;
   }
 
@@ -98,7 +99,8 @@ export class User extends AggregateRoot<UserProps> {
       return Result.fail<User>(guardResult.getErrorValue());
     }
 
-    const isNewUser = !!id === false;
+    const isNewUser = !!props.isNew ? props.isNew : false;
+    //!!id === false;
     const user = new User(
       {
         ...props,

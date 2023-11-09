@@ -37,7 +37,9 @@
   },
   "dependencies": {
     "@types/dompurify": "^3.0.4",
+    "@types/jest": "^24.0.18",
     "@types/jsdom": "^21.1.4",
+    "@types/lodash": "^4.14.141",
     "@types/uuid": "^9.0.6",
     "@types/validator": "^13.11.5",
     "bcrypt-nodejs": "^0.0.3",
@@ -46,12 +48,15 @@
     "dompurify": "^3.0.6",
     "express": "^4.18.2",
     "express-rate-limit": "^5.0.0",
+    "jest": "^24.9.0",
     "jsonwebtoken": "^8.5.1",
     "jsdom": "^22.1.0",
+    "lodash": "^4.17.15",
     "mongoose": "^7.6.3",
     "morgan": "^1.10.0",
     "rand-token": "^0.4.0",
     "redis": "^2.8.0",
+    "slug": "^1.1.0",
     "uuid": "^9.0.1",
     "validator": "^13.11.0"
   }

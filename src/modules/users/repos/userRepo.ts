@@ -8,4 +8,5 @@ export interface IUserRepo {
   getUserByUserName(userName: UserName | string): Promise<User>;
   save(user: User): Promise<void>;
   delete(userId: string): Promise<void>;
+  initialize(): Promise<any>;
 }

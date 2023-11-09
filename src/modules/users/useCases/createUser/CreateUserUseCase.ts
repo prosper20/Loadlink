@@ -9,6 +9,7 @@ import { UserName } from "../../domain/userName";
 import { User } from "../../domain/user";
 import { FullName } from "../../domain/fullName";
 import { MobileNumber } from "../../domain/mobileNumber";
+import { UniqueEntityID } from "../../../../shared/domain/UniqueEntityID";
 
 type Response = Either<
   | CreateUserErrors.MobileNumberAlreadyExistsError
@@ -73,14 +74,23 @@ export class CreateUserUseCase
         }
       } catch (err) {}
 
-      const userOrError: Result<User> = User.create({
-        mobileNumber,
-        password,
-        fullname,
-        username,
-      });
+      const emptyUser = await this.userRepo.initialize();
+      const id = new UniqueEntityID(emptyUser._id.toString());
+      const isNew = emptyUser.is_new as boolean;
+
+      const userOrError: Result<User> = User.create(
+        {
+          mobileNumber,
+          password,
+          fullname,
+          username,
+          isNew,
+        },
+        id
+      );
 
       if (userOrError.isFailure) {
+        this.userRepo.delete(emptyUser._id);
         return left(
           Result.fail<User>(userOrError.getErrorValue().toString())
         ) as Response;
