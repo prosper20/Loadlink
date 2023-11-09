@@ -16,15 +16,14 @@ export interface IBaseUser extends Document {
 export interface ITrip extends Document {
   trip_id: string;
   traveller_id: ObjectId;
-  title?: string;
-  text?: string;
+  start: string;
+  destination: string;
+  departure_date: Date;
+  arrival_date: Date;
+  starting_amount: number;
+  means_of_travel: string;
   slug: string;
   points: number;
-  starting_location: string;
-  destination: string;
-  beginning_date: Date;
-  ending_date: Date;
-  images: string[];
   is_new: boolean;
 }
 

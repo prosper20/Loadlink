@@ -4,25 +4,17 @@ import { Trip } from "../../domain/trip";
 import { TripMap } from "../../mappers/tripMap";
 import { TripDetails } from "../../domain/tripDetails";
 import { TripDetailsMap } from "../../mappers/tripDetailsMap";
-import { ICommentRepo } from "../commentRepo";
 import { ITripLikesRepo } from "../tripLikesRepo";
 import { TripLikes } from "../../domain/tripLikes";
-import { Comments } from "../../domain/comments";
-import { Model, Document } from "mongoose";
+import { Model } from "mongoose";
 import { ITrip } from "../../../../shared/infra/database/mongoose/IModels";
 
 export class TripRepo implements ITripRepo {
   private tripModel: Model<ITrip>;
-  private commentRepo: ICommentRepo;
   private tripLikesRepo: ITripLikesRepo;
 
-  constructor(
-    tripModel: Model<ITrip>,
-    commentRepo: ICommentRepo,
-    tripLikesRepo: ITripLikesRepo
-  ) {
+  constructor(tripModel: Model<ITrip>, tripLikesRepo: ITripLikesRepo) {
     this.tripModel = tripModel;
-    this.commentRepo = commentRepo;
     this.tripLikesRepo = tripLikesRepo;
   }
 
@@ -111,10 +103,6 @@ export class TripRepo implements ITripRepo {
     return;
   }
 
-  private saveComments(comments: Comments) {
-    return this.commentRepo.saveBulk(comments.getItems());
-  }
-
   private saveTripLikes(tripLikes: TripLikes) {
     return this.tripLikesRepo.saveBulk(tripLikes);
   }
@@ -136,7 +124,6 @@ export class TripRepo implements ITripRepo {
           { new: true }
         );
         newTrip.save();
-        //await this.saveComments(trip.comments);
         //await this.saveTripLikes(trip.getLikes());
       } catch (err) {
         //await this.delete(trip.tripId);
@@ -146,7 +133,6 @@ export class TripRepo implements ITripRepo {
       // Save non-aggregate collections before saving the aggregate
       // so that any domain events on the aggregate get dispatched
 
-      //await this.saveComments(trip.comments);
       //await this.saveTripLikes(trip.getLikes());
 
       const updatedTrip = await this.tripModel.findByIdAndUpdate(
@@ -157,13 +143,14 @@ export class TripRepo implements ITripRepo {
       updatedTrip.save();
     }
   }
+  // create and empty trip
   async initialize() {
     const emptydoc = {
-      title: "",
+      means_of_travel: "",
       trip_id: "",
-      text: "",
+      starting_amount: 0,
       slug: "",
-      starting_location: "",
+      start: "",
       destination: "",
     };
     return await this.tripModel.create(emptydoc);

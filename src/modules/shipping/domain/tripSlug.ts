@@ -1,6 +1,5 @@
 import { ValueObject } from "../../../shared/domain/ValueObject";
 import { Result } from "../../../shared/core/Result";
-import { TripTitle } from "./tripTitle";
 import slug from "slug";
 import { TextUtils } from "../../../shared/utils/TextUtils";
 
@@ -34,14 +33,13 @@ export class TripSlug extends ValueObject<TripSlugProps> {
     }
   }
 
-  public static create(tripTitle: TripTitle): Result<TripSlug> {
+  public static create(value: string): Result<TripSlug> {
     let returnSlug = "";
 
     // Run the slug algorithm here to create a slug
     // Strip all non alphabetic characters such as . / ; ,
-    returnSlug = tripTitle.value.replace(/[\W_]+/g, " ");
-    returnSlug =
-      TextUtils.createRandomNumericString(7) + "-" + slug(tripTitle.value);
+    returnSlug = value.replace(/[\W_]+/g, " ");
+    returnSlug = TextUtils.createRandomNumericString(7) + "-" + slug(value);
 
     return Result.ok<TripSlug>(new TripSlug({ value: returnSlug }));
   }

@@ -12,10 +12,22 @@ const TripSchema = new Schema<ITrip>(
       type: Types.ObjectId,
       ref: "Traveller",
     },
-    title: {
+    start: {
       type: String,
     },
-    text: {
+    destination: {
+      type: String,
+    },
+    departure_date: {
+      type: Date,
+    },
+    arrival_date: {
+      type: Date,
+    },
+    starting_amount: {
+      type: Number,
+    },
+    means_of_travel: {
       type: String,
     },
     slug: {
@@ -26,21 +38,6 @@ const TripSchema = new Schema<ITrip>(
       type: Number,
       required: true,
       default: 0,
-    },
-    starting_location: {
-      type: String,
-    },
-    destination: {
-      type: String,
-    },
-    beginning_date: {
-      type: Date,
-    },
-    ending_date: {
-      type: Date,
-    },
-    images: {
-      type: [String],
     },
     is_new: {
       type: Boolean,
@@ -63,9 +60,6 @@ TripSchema.virtual("likes", {
 // Add hooks
 TripSchema.pre<ITrip>("save", function (next) {
   this.is_new = this.isNew;
-  if (this.starting_location && this.destination) {
-    this.title = `${this.starting_location} - ${this.destination}`;
-  }
   next();
 });
 

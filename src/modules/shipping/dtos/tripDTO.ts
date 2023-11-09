@@ -4,14 +4,13 @@ import { TravellerDTO } from "./travellerDTO";
 
 export interface TripDTO {
   slug: string;
-  title: string;
-  images?: string[];
-  travellerPostedBy: TravellerDTO;
-  points: number;
-  text: string;
-  startingLocation: string;
+  start: string;
   destination: string;
-  beginningDate: string | Date;
-  endingDate: string | Date;
-  createdAt: string | Date;
+  departureDate: string | Date;
+  arrivalDate: string | Date;
+  startingAmount: number;
+  meansOfTravel: string;
+  postedBy: TravellerDTO;
+  points: number;
+  dateTimePosted: string | Date;
 }

@@ -1,9 +1,9 @@
 export interface CreateTripDTO {
   userId: string;
-  title: string;
-  text: string;
-  startingLocation: string;
+  start: string;
   destination: string;
-  beginningDate: string;
-  endingDate: string;
+  departureDate: string;
+  arrivalDate: string;
+  startingAmount: string;
+  meansOfTravel: string;
 }

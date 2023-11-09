@@ -7,14 +7,12 @@ import { ITravellerRepo } from "../../../repos/travellerRepo";
 import { Traveller } from "../../../domain/traveller";
 import { CreateTripErrors } from "./CreateTripErrors";
 import { Trip, TripProps } from "../../../domain/trip";
-import { TripTitle } from "../../../domain/tripTitle";
-import { TripText } from "../../../domain/tripText";
 import { TripSlug } from "../../../domain/tripSlug";
-import { link } from "fs";
 import { Destination } from "../../../domain/destination";
 import { StartingLocation } from "../../../domain/startingLocation";
 import { TripDate } from "../../../domain/tripDate";
 import { UniqueEntityID } from "../../../../../shared/domain/UniqueEntityID";
+import { MeansOfTravel } from "../../../domain/meansOfTravel";
 
 type Response = Either<
   | CreateTripErrors.TravellerDoesntExistError
@@ -34,14 +32,14 @@ export class CreateTrip implements UseCase<CreateTripDTO, Promise<Response>> {
 
   public async execute(request: CreateTripDTO): Promise<Response> {
     let traveller: Traveller;
-    let title: TripTitle;
-    let text: TripText;
     let slug: TripSlug;
     let trip: Trip;
     let startingLocation: StartingLocation;
     let destination: Destination;
-    let beginningDate: TripDate;
-    let endingDate: TripDate;
+    let departureDate: TripDate;
+    let arrivalDate: TripDate;
+    let startingAmount: number;
+    let meansOfTravel: MeansOfTravel;
 
     const { userId } = request;
 
@@ -52,24 +50,20 @@ export class CreateTrip implements UseCase<CreateTripDTO, Promise<Response>> {
         return left(new CreateTripErrors.TravellerDoesntExistError());
       }
 
-      const titleOrError = TripTitle.create({
-        value: request.title
-          ? request.title
-          : `${request.startingLocation} - ${request.destination}`,
+      const meansOfTravelOrError = MeansOfTravel.create({
+        value: request.meansOfTravel,
       });
 
-      if (titleOrError.isFailure) {
-        return left(titleOrError);
+      if (meansOfTravelOrError.isFailure) {
+        return left(meansOfTravelOrError);
       }
-      title = titleOrError.getValue();
+      meansOfTravel = meansOfTravelOrError.getValue();
 
-      const textOrError = TripText.create({ value: request.text });
-      if (textOrError.isFailure) {
-        return left(textOrError);
-      }
-      text = textOrError.getValue();
+      startingAmount = parseInt(request.startingAmount, 10);
 
-      const slugOrError = TripSlug.create(title);
+      const slugOrError = TripSlug.create(
+        `${request.start} to ${request.destination} `
+      );
 
       if (slugOrError.isFailure) {
         return left(slugOrError);
@@ -78,7 +72,7 @@ export class CreateTrip implements UseCase<CreateTripDTO, Promise<Response>> {
       slug = slugOrError.getValue();
 
       const startingLocationOrError = StartingLocation.create({
-        value: request.startingLocation,
+        value: request.start,
       });
       if (startingLocationOrError.isFailure) {
         return left(startingLocationOrError);
@@ -93,31 +87,31 @@ export class CreateTrip implements UseCase<CreateTripDTO, Promise<Response>> {
       }
       destination = destinationOrError.getValue();
 
-      const beginningDateOrError = TripDate.create(request.beginningDate);
-      if (beginningDateOrError.isFailure) {
-        return left(beginningDateOrError);
+      const departureDateOrError = TripDate.create(request.departureDate);
+      if (departureDateOrError.isFailure) {
+        return left(departureDateOrError);
       }
-      beginningDate = beginningDateOrError.getValue();
+      departureDate = departureDateOrError.getValue();
 
-      const endingDateOrError = TripDate.create(request.endingDate);
-      if (endingDateOrError.isFailure) {
-        return left(endingDateOrError);
+      const arrivalDateOrError = TripDate.create(request.arrivalDate);
+      if (arrivalDateOrError.isFailure) {
+        return left(arrivalDateOrError);
       }
-      endingDate = endingDateOrError.getValue();
+      arrivalDate = arrivalDateOrError.getValue();
 
       const emptyTrip = await this.tripRepo.initialize();
       const id = new UniqueEntityID(emptyTrip._id.toString());
       const isNew = emptyTrip.is_new as boolean;
 
       const tripProps: TripProps = {
-        title,
+        meansOfTravel,
         slug,
         travellerId: traveller.travellerId,
-        text,
+        startingAmount,
         startingLocation,
         destination,
-        beginningDate,
-        endingDate,
+        departureDate,
+        arrivalDate,
         isNew,
       };
 

@@ -1,28 +1,24 @@
 import { ValueObject } from "../../../shared/domain/ValueObject";
-import { TripText } from "./tripText";
-import { TripTitle } from "./tripTitle";
 import { TripSlug } from "./tripSlug";
 import { TravellerDetails } from "./travellerDetails";
 import { Result } from "../../../shared/core/Result";
 import { IGuardArgument, Guard } from "../../../shared/core/Guard";
-import { Trip } from "./trip";
 import { Destination } from "./destination";
 import { StartingLocation } from "./startingLocation";
 import { TripDate } from "./tripDate";
-import { TravellerId } from "./travellerId";
+import { MeansOfTravel } from "./meansOfTravel";
 
 interface TripDetailsProps {
   traveller: TravellerDetails;
   slug: TripSlug;
-  title?: TripTitle;
-  text?: TripText;
-  points: number;
-  dateTimePosted: string | Date;
-  images?: string[];
   startingLocation: StartingLocation;
   destination: Destination;
-  beginningDate: TripDate;
-  endingDate: TripDate;
+  departureDate: TripDate;
+  arrivalDate: TripDate;
+  startingAmount: number;
+  meansOfTravel: MeansOfTravel;
+  points: number;
+  dateTimePosted: string | Date;
 }
 
 export class TripDetails extends ValueObject<TripDetailsProps> {
@@ -34,12 +30,12 @@ export class TripDetails extends ValueObject<TripDetailsProps> {
     return this.props.slug;
   }
 
-  get title(): TripTitle {
-    return this.props.title;
+  get startingAmount(): number {
+    return this.props.startingAmount;
   }
 
-  get text(): TripText {
-    return this.props.text;
+  get meansOfTravel(): MeansOfTravel {
+    return this.props.meansOfTravel;
   }
 
   get points(): number {
@@ -50,20 +46,18 @@ export class TripDetails extends ValueObject<TripDetailsProps> {
     return this.props.dateTimePosted;
   }
 
-  get images(): string[] {
-    return this.props.images;
-  }
   get startingLocation(): StartingLocation {
     return this.props.startingLocation;
   }
   get destination(): Destination {
     return this.props.destination;
   }
-  get beginningDate(): TripDate {
-    return this.props.beginningDate;
+  get departureDate(): TripDate {
+    return this.props.departureDate;
   }
-  get endingDate(): TripDate {
-    return this.props.endingDate;
+
+  get arrivalDate(): TripDate {
+    return this.props.arrivalDate;
   }
 
   private constructor(props: TripDetailsProps) {
@@ -78,8 +72,10 @@ export class TripDetails extends ValueObject<TripDetailsProps> {
       { argument: props.dateTimePosted, argumentName: "dateTimePosted" },
       { argument: props.startingLocation, argumentName: "startingLocation" },
       { argument: props.destination, argumentName: "destination" },
-      { argument: props.beginningDate, argumentName: "beginningDate" },
-      { argument: props.endingDate, argumentName: "endingDate" },
+      { argument: props.departureDate, argumentName: "departureDate" },
+      { argument: props.arrivalDate, argumentName: "arrivalDate" },
+      { argument: props.startingAmount, argumentName: "startingAmount" },
+      { argument: props.meansOfTravel, argumentName: "meansOfTravel" },
     ];
 
     const guardResult = Guard.againstNullOrUndefinedBulk(guardArgs);

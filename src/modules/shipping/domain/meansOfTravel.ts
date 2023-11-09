@@ -2,43 +2,43 @@ import { ValueObject } from "../../../shared/domain/ValueObject";
 import { Result } from "../../../shared/core/Result";
 import { Guard } from "../../../shared/core/Guard";
 
-interface TripTextProps {
+interface MeansOfTravelProps {
   value: string;
 }
 
-export class TripText extends ValueObject<TripTextProps> {
+export class MeansOfTravel extends ValueObject<MeansOfTravelProps> {
   public static minLength: number = 2;
-  public static maxLength: number = 10000;
+  public static maxLength: number = 100;
 
   get value(): string {
     return this.props.value;
   }
 
-  private constructor(props: TripTextProps) {
+  private constructor(props: MeansOfTravelProps) {
     super(props);
   }
 
-  public static create(props: TripTextProps): Result<TripText> {
+  public static create(props: MeansOfTravelProps): Result<MeansOfTravel> {
     const nullGuardResult = Guard.againstNullOrUndefined(
       props.value,
-      "tripText"
+      "meansOfTravel"
     );
 
     if (nullGuardResult.isFailure) {
-      return Result.fail<TripText>(nullGuardResult.getErrorValue());
+      return Result.fail<MeansOfTravel>(nullGuardResult.getErrorValue());
     }
 
     const minGuardResult = Guard.againstAtLeast(this.minLength, props.value);
     const maxGuardResult = Guard.againstAtMost(this.maxLength, props.value);
 
     if (minGuardResult.isFailure) {
-      return Result.fail<TripText>(minGuardResult.getErrorValue());
+      return Result.fail<MeansOfTravel>(minGuardResult.getErrorValue());
     }
 
     if (maxGuardResult.isFailure) {
-      return Result.fail<TripText>(maxGuardResult.getErrorValue());
+      return Result.fail<MeansOfTravel>(maxGuardResult.getErrorValue());
     }
 
-    return Result.ok<TripText>(new TripText(props));
+    return Result.ok<MeansOfTravel>(new MeansOfTravel(props));
   }
 }

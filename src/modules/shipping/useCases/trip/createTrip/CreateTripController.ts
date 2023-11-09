@@ -18,13 +18,17 @@ export class CreateTripController extends BaseController {
     const { userId } = req.decoded;
 
     const dto: CreateTripDTO = {
-      title: !!req.body.title ? TextUtils.sanitize(req.body.title) : null,
-      text: !!req.body.text ? TextUtils.sanitize(req.body.text) : null,
       userId: userId,
-      startingLocation: TextUtils.sanitize(req.body.startingLocation),
+      start: TextUtils.sanitize(req.body.start),
       destination: TextUtils.sanitize(req.body.destination),
-      beginningDate: TextUtils.sanitize(req.body.beginningDate),
-      endingDate: TextUtils.sanitize(req.body.endingDate),
+      departureDate: TextUtils.sanitize(
+        `${req.body.departureDate}T${req.body.departureTime}`
+      ),
+      arrivalDate: TextUtils.sanitize(
+        `${req.body.arrivalDate}T${req.body.arrivalTime}`
+      ),
+      startingAmount: TextUtils.sanitize(req.body.startingAmount),
+      meansOfTravel: TextUtils.sanitize(req.body.meansOfTravel),
     };
 
     try {

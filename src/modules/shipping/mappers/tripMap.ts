@@ -3,11 +3,10 @@ import { Trip } from "../domain/trip";
 import { UniqueEntityID } from "../../../shared/domain/UniqueEntityID";
 import { TravellerId } from "../domain/travellerId";
 import { TripSlug } from "../domain/tripSlug";
-import { TripTitle } from "../domain/tripTitle";
-import { TripText } from "../domain/tripText";
 import { StartingLocation } from "../domain/startingLocation";
 import { Destination } from "../domain/destination";
 import { TripDate } from "../domain/tripDate";
+import { MeansOfTravel } from "../domain/meansOfTravel";
 
 export class TripMap implements Mapper<Trip> {
   public static toDomain(raw: any): Trip {
@@ -17,17 +16,18 @@ export class TripMap implements Mapper<Trip> {
           new UniqueEntityID(raw.traveller_id)
         ).getValue(),
         slug: TripSlug.createFromExisting(raw.slug).getValue(),
-        title: TripTitle.create({ value: raw.title }).getValue(),
-        text: TripText.create({ value: raw.text }).getValue(),
-        points: raw.points,
-        dateTimePosted: raw.createdAt,
-        images: raw.images,
         startingLocation: StartingLocation.create({
-          value: raw.starting_location,
+          value: raw.start,
         }).getValue(),
         destination: Destination.create({ value: raw.destination }).getValue(),
-        beginningDate: TripDate.create(raw.beginning_date).getValue(),
-        endingDate: TripDate.create(raw.ending_date).getValue(),
+        departureDate: TripDate.create(raw.departure_date).getValue(),
+        arrivalDate: TripDate.create(raw.arrival_date).getValue(),
+        startingAmount: raw.starting_amount,
+        meansOfTravel: MeansOfTravel.create({
+          value: raw.means_of_travel,
+        }).getValue(),
+        points: raw.points,
+        dateTimePosted: raw.createdAt,
       },
       new UniqueEntityID(raw.post_id)
     );
@@ -39,16 +39,16 @@ export class TripMap implements Mapper<Trip> {
 
   public static toPersistence(trip: Trip): any {
     return {
-      title: trip.title.value,
       trip_id: trip.tripId.getStringValue(),
       traveller_id: trip.travellerId.getStringValue(),
-      text: trip.text.value,
+      start: trip.startingLocation.value,
+      destination: trip.destination.value,
+      departure_date: trip.departureDate.value,
+      arrival_date: trip.arrivalDate.value,
+      starting_amount: trip.startingAmount,
+      means_of_travel: trip.meansOfTravel.value,
       slug: trip.slug.value,
       points: trip.points,
-      starting_location: trip.startingLocation.value,
-      destination: trip.destination.value,
-      beginning_date: trip.beginningDate.value,
-      ending_date: trip.endingDate.value,
     };
   }
 }
