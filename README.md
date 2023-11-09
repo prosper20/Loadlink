@@ -213,9 +213,9 @@ As a user, I want to see my shipping history, including past shipments, to keep 
 ## Initial mockup for mobile screens
 
 <p align="center">
+  <img src="./diagrams/Review%20details%20(4).png" width="250" alt="Tracking page (mobile view)"/>
   <img src="./diagrams/Review%20details%20(1).png" width="250" alt="User Dashboard (mobile view)"/>
   <img src="./diagrams/Review%20details%20(2).png" width="250" alt="Orders Page (mobile view)"/>
-  <img src="./diagrams/Review%20details%20(4).png" width="250" alt="Tracking page (mobile view)"/>
 </p>
 
 ## Contributing
